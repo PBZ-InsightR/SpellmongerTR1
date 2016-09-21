@@ -3,12 +3,12 @@ package edu.insightr.spellmonger;
 /**
  * Created by Ken on 21/09/2016.
  */
-public class Rituals {
+public class Ritual {
 
     private String type;
     private int points;
 
-    public Rituals(String type, int points)
+    public Ritual(String type, int points)
     {
         this.type = type;
         this.points = points;
