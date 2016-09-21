@@ -3,13 +3,13 @@ package edu.insightr.spellmonger;
 /**
  * Created by Ken on 21/09/2016r
  */
-public class Creatures {
+public class Creature {
 
     private final String name;
     private int damage;
 
 
-    public Creatures(String name, int damage)
+    public Creature(String name, int damage)
     {
         this.name = name;
         this.damage = damage;
