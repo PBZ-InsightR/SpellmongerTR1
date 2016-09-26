@@ -2,8 +2,10 @@
 Card game
 
 
-Branches : - master
-           - master1.1 
+Branches : 
+
+- master
+- master1.1 
 
 
 Step 1:
