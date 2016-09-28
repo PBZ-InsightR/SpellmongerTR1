@@ -1,26 +1,22 @@
-public class Creature extends Card
+public class Creature
 {
     private final String name; //Name can't change
     private int damage; //Damage change with switch
 
 
-    public Creature(String id) 
-    { 
-        super (id); 
+    public Creature(String name)
+    {
         int damage=0; //Initialisation
-        
-        switch(id)
+        this.name = name;
+        switch(name)
         {
-            case 1 : 
-            name = "Eagle";
+            case "Eagle":
                 damage = 1;
                 break;
-            case 2 : 
-            name="Wolf";
+            case "Wolf":
                 damage = 2;
                 break;
-            case 3 : 
-            name = "Bear"; 
+            case "Bear":
                 damage = 3;
                 break;
             default:
@@ -28,7 +24,6 @@ public class Creature extends Card
                 break;
         }
         this.damage=damage;
-        this.name = name;
     }
 
     public String getName(){
