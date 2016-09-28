@@ -9,23 +9,26 @@ public class Creature {
     private int damage;
 
 
-    public Creature(String name, int damage)
+    public Creature(String name)
     {
+        int damage=0; //Initialisation
         this.name = name;
         switch(name)
         {
             case "Eagle":
-                damage=1;
+                damage = 1;
                 break;
             case "Wolf":
-                damage=2;
+                damage = 2;
                 break;
             case "Bear":
-                damage=3;
+                damage = 3;
+                break;
+            default:
+                System.out.println("FAIL ! This Creature doesn't exist !");
                 break;
         }
         this.damage=damage;
-
     }
 
     public String getName(){
