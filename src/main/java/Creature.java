@@ -4,7 +4,7 @@ public class Creature
     private int damage; //Damage change with switch
 
 
-    public Creature(String name)
+    public Creature(String name) // ATTENTION ! This will be an extend of Class CARTES, not implemented yet (with super, extend, etc ...) !
     {
         int damage=0; //Initialisation
         this.name = name;
