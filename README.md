@@ -1,14 +1,25 @@
 # SpellmongerTR1
-Card game
+
+Spellmonger is a card game.
+
+Each player starts with 20 LifePoints.
+The goal of the game is to bring the opponents LifePoints to 0.
+
+The card game contains 70 cards and may be Ritual or Creature cards.
+
+Each player draws a card after one another and each card drawn are discarded on the stack.
 
 
-Branches : 
+5 types of cards are available : 
 
-- master
-- master1.1 
+- Eagle
+- Bear
+- Wolf
+- Blessing
+- Curse
 
 
-Step 1:
+Each card points :
 
 - Has 3 different creatures: eagle, wolf and bear
 - Eagle deals 1 damage
@@ -19,4 +30,3 @@ Step 1:
 - Curse deals 3 damages
 - Blessing restore 3 life points
 
-- add a discard to the game
