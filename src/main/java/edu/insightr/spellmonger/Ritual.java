@@ -37,11 +37,11 @@ public class Ritual {
         name = getType();
 
         try{
-            if (name == "Curse")
+            if (name.equals("Curse"))
             {
                 setPoints(-3);
             }
-            else if (name == "Blessing")
+            else if (name.equals("Blessing"))
             {
                 setPoints(3);
             }
