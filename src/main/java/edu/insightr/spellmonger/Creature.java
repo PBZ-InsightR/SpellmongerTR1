@@ -12,19 +12,25 @@ public class Creature {
     public Creature(String name, int damage)
     {
         this.name = name;
-        this.damage = damage;
+        switch(name)
+        {
+            case "Eagle":
+                damage=1;
+                break;
+            case "Wolf":
+                damage=2;
+                break;
+            case "Bear":
+                damage=3;
+                break;
+        }
+        this.damage=damage;
 
     }
 
     public String getName(){
         return name;
     }
-
-    public int setDamage(int points){
-        damage = points;
-        return damage;
-            }
-
 
     public int getDamage(){
         return damage;
