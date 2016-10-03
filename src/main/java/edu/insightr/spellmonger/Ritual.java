@@ -1,16 +1,17 @@
 package edu.insightr.spellmonger;
 
 /**
- * Ritual is either a curse or a blessing.
+ * Created by Merad on 03/10/2016.
  */
-public class Ritual extends Card{
+public class Ritual {
 
+    private final String type;
     private final int value;
 
-    public Ritual(String id){
-        super(id);
+    public Ritual(String type){
+        this.type=type;
 
-        switch(id) {
+        switch(type) {
             case "Curse":
                 value = -3;
                 break;
@@ -24,6 +25,9 @@ public class Ritual extends Card{
         }
     }
 
+    public String getType(){
+        return this.type;
+    }
     public int getValue(){
         return this.value;
     }
