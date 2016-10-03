@@ -1,7 +1,7 @@
 package edu.insightr.spellmonger;
 
 /**
- * Created by Merad on 03/10/2016.
+ * Ritual
  */
 public class Ritual {
 
