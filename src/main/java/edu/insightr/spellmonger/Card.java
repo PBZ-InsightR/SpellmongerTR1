@@ -1,17 +1,17 @@
 package edu.insightr.spellmonger;
 
 /*
-** Card abstract class id means the "name" of the card
+** Card abstract class
  */
 
 public abstract class Card {
-    private final String id;
+    private final int id;
 
-    public Card(String id){
+    public Card(int id){
         this.id = id;
     }
 
-    public String getId(){
+    public int getId(){
         return id;
     }
 }
