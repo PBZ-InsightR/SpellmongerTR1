@@ -5,13 +5,20 @@ package edu.insightr.spellmonger;
  */
 
 public abstract class Card {
-    private final String id;
+    private String id;
 
-    public Card(String id){
+    public Card(String id) {
         this.id = id;
     }
 
-    public String getId(){
+    public String getId() {
         return id;
     }
+
+
+
+
+
+
+
 }
