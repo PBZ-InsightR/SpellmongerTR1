@@ -1,25 +1,27 @@
+package edu.insightr.spellmonger;
+
 public class Creature extends Card
 {
-    private final String name; //Name can't change
+    private String name; //Name can't change
     private int damage; //Damage change with switch
 
 
     public Creature(String id) 
     { 
-        super (id); 
+        super (id);
         int damage=0; //Initialisation
-        
+
         switch(id)
         {
-            case 1 : 
+            case "1" :
             name = "Eagle";
                 damage = 1;
                 break;
-            case 2 : 
+            case "2" :
             name="Wolf";
                 damage = 2;
                 break;
-            case 3 : 
+            case "3" :
             name = "Bear"; 
                 damage = 3;
                 break;
@@ -28,7 +30,7 @@ public class Creature extends Card
                 break;
         }
         this.damage=damage;
-        this.name = name;
+
     }
 
     public String getName(){
