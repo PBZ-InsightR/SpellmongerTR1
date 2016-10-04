@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
@@ -23,7 +24,7 @@ public class SpellmongerApp {
         playersCreature.put("Bob", 0);
         int ritualMod = 3;
 
-        for (int i = 0; i < 70; i++) {
+        for (int i = 0; i < 70; i++) { //Creation du paquet de 70 cartes au hasard, ajouter les differents types de ritual
             if (i % ritualMod == 0) {
                 cardPool.add("Ritual");
             }
@@ -39,7 +40,28 @@ public class SpellmongerApp {
 
         }
     }
+    /*public static List<Creature> GenerationAleatoirePaquet(int nbCarte)
+    {
+        List<String> cardPool = new ArrayList<>(nbCarte);
+        int n=0;
+        while(n<nbCarte) {
+            int nbAleatoire = (int)(Math.random()*4+1);
+            switch (nbAleatoire) {
+                case 1:
+                    cardPool.add();
+                case 2:
 
+                case 3:
+
+                case 4:
+                case 5:
+
+            }
+            n++;
+        }
+
+    }
+    */
     public static void main(String[] args) {
         SpellmongerApp app = new SpellmongerApp();
 
@@ -88,9 +110,9 @@ public class SpellmongerApp {
 
     private void drawACard(String currentPlayer, String opponent, int currentCardNumber) {
 
-        if ("Creature".equalsIgnoreCase(cardPool.get(currentCardNumber))) {
+        if ("Creature".equalsIgnoreCase(cardPool.get(currentCardNumber))) {//si il pioche une creature
             logger.info(currentPlayer + " draw a Creature");
-            playersCreature.put(currentPlayer, playersCreature.get(currentPlayer) + 1);
+            playersCreature.put(currentPlayer, playersCreature.get(currentPlayer) + 1); // on ajoute 1 a ces creatures
             int nbCreatures = playersCreature.get(currentPlayer);
             if (nbCreatures > 0) {
                 playersLifePoints.put(opponent, (playersLifePoints.get(opponent) - nbCreatures));
@@ -108,5 +130,8 @@ public class SpellmongerApp {
             logger.info(currentPlayer + " cast a ritual that deals 3 damages to " + opponent);
         }
     }
+
+
+
 
 }
