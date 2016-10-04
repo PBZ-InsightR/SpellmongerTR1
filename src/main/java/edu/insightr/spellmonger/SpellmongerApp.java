@@ -8,22 +8,33 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+/*
+Life Points (2 players)
+Call class Card
+Call class Deck (while (Draw card); Random, Discard)
+ */
 
 public class SpellmongerApp {
+    //Creation of loggeur for warning (and test)
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
 
+    // Name and life of player
     private Map<String, Integer>  playersLifePoints = new HashMap<>(2);
     private Map<String, Integer> playersCreature = new HashMap<>(2);
+    //List of Name Card
     private List<String> cardPool = new ArrayList<>(70);
 
-    private SpellmongerApp() {
+    private SpellmongerApp()
+    {
+        // Creation of 2 players and deck by a "random system" (A confirmer)
         playersLifePoints.put("Alice", 20);
         playersLifePoints.put("Bob", 20);
         playersCreature.put("Alice", 0);
         playersCreature.put("Bob", 0);
         int ritualMod = 3;
 
-        for (int i = 0; i < 70; i++) {
+        for (int i = 0; i < 70; i++)
+        {
             if (i % ritualMod == 0) {
                 cardPool.add("Ritual");
             }
@@ -40,8 +51,11 @@ public class SpellmongerApp {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
+        //
         SpellmongerApp app = new SpellmongerApp();
+
 
         boolean onePlayerDead = false;
         String currentPlayer = "Alice";
@@ -50,7 +64,8 @@ public class SpellmongerApp {
         int roundCounter = 1;
         String winner = null;
 
-        while (!onePlayerDead) {
+        while (!onePlayerDead)
+        {
             logger.info("\n");
             logger.info("***** ROUND " + roundCounter);
 
@@ -86,9 +101,11 @@ public class SpellmongerApp {
 
     }
 
-    private void drawACard(String currentPlayer, String opponent, int currentCardNumber) {
+    private void drawACard(String currentPlayer, String opponent, int currentCardNumber)
+    {
 
-        if ("Creature".equalsIgnoreCase(cardPool.get(currentCardNumber))) {
+        if ("Creature".equalsIgnoreCase(cardPool.get(currentCardNumber)))
+        {
             logger.info(currentPlayer + " draw a Creature");
             playersCreature.put(currentPlayer, playersCreature.get(currentPlayer) + 1);
             int nbCreatures = playersCreature.get(currentPlayer);
