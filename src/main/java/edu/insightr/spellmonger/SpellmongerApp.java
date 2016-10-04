@@ -41,6 +41,8 @@ public class SpellmongerApp {
     }
 
     public static void main(String[] args) {
+
+
         SpellmongerApp app = new SpellmongerApp();
 
         boolean onePlayerDead = false;
