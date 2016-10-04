@@ -8,11 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-/*
-Life Points (2 players)
-Call class Card
-Call class Deck (while (Draw card); Random, Discard)
- */
 
 public class SpellmongerApp {
     //Creation of loggeur for warning (and test)
