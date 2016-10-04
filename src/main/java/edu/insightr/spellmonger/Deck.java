@@ -1,4 +1,5 @@
 package edu.insightr.spellmonger;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
@@ -29,10 +30,18 @@ public class Deck {
             ListPourMelanger.add("Curse");
             ListPourMelanger.add("Blessing");
 
+            // On prépare une table pour la vérification future
+            HashMap<String, Integer> hashmap = new HashMap<>();
+            for(String s: ListPourMelanger)
+            {
+                hashmap.put(s,0);
+            }
+
             do {
 
 
-                String carte_nom = ListPourMelanger.get(NombreAleatoire(0,4));
+                String carte_nom = ListPourMelanger.get(NombreAleatoire(0,ListPourMelanger.size()-1));
+                //System.out.println(carte_nom);
                 if(EstUneCreature(carte_nom))
                 {
                     Card new_carte= new Creature(carte_nom);
@@ -50,6 +59,14 @@ public class Deck {
             Donc je vérifie pour chaque type,dans le deck,ci celui ci n'est pas present plus de 14 fois ; si c'est le cas je la supprime
             de "ListPourMelanger" pour qu'elle ne soit plus crée dans le deck.*/
 
+                int max_size = 14;
+                hashmap.put(carte_nom, hashmap.get(carte_nom)+1);
+                if(hashmap.get(carte_nom) == max_size)
+                {
+                    // on l'enleve du deck
+                    ListPourMelanger.remove(carte_nom);
+                }
+                /*
                 if (compteur>=14) {
                     int verification=0;
                     for (Card carte : l_carte) {
@@ -122,6 +139,7 @@ public class Deck {
                         }
                     }
                 }
+                */
 
             }while(compteur<70);
 
