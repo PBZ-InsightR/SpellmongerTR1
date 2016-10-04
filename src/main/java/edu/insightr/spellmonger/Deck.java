@@ -7,11 +7,6 @@ import java.util.ArrayList;
  */
 public class Deck {
 
-
-
-
-
-
         private List<Card> l_carte;
 
 
@@ -156,15 +151,22 @@ public class Deck {
 
         public Card DrawCard()
         {
-            Card carte_pioche=l_carte.get(0);
-            l_carte.remove(0);
+            Card carte_pioche = null;
+            if(l_carte.size() == 0)
+            {
+            }
+            else
+            {
+                carte_pioche=l_carte.get(0);
+                l_carte.remove(0);
+            }
+
             return carte_pioche;
         }
-        public Card DiscardCard(Card cartepioche) // What does it mean ?
+
+        public Card DiscardCard(Card cartepioche) // Not sure what it means, draw a card and not use it ?
         {
             return DrawCard();
         }
-
-
     }
 
