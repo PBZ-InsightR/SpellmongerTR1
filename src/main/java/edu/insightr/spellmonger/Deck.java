@@ -12,7 +12,7 @@ public class Deck {
 
 
 
-        private List<Card> l_carte  ;
+        private List<Card> l_carte;
 
 
         public Deck(){
@@ -27,7 +27,6 @@ public class Deck {
             List<String> ListPourMelanger = new ArrayList<>();
 
             int compteur=1;
-            int verification=0;
 
             ListPourMelanger.add("Eagle");
             ListPourMelanger.add("Wolf");
@@ -35,12 +34,21 @@ public class Deck {
             ListPourMelanger.add("Curse");
             ListPourMelanger.add("Blessing");
 
-
             do {
 
 
-                Card new_carte= new Creature((ListPourMelanger.get(NombreAleatoire(0,4))));//choisit au hasard une carte.
-                l_carte.add(new_carte);
+                String carte_nom = ListPourMelanger.get(NombreAleatoire(0,4));
+                if(EstUneCreature(carte_nom))
+                {
+                    Card new_carte= new Creature(carte_nom);
+                    l_carte.add(new_carte);
+                }
+                else
+                {
+                    Card new_carte= new Ritual(carte_nom);//choisit au hasard une carte.
+                    l_carte.add(new_carte);
+                }
+
                 compteur++;
 
             /*dés qu'il y a eu au moins 14 cartes créees il est possible qu'un type soit repeté plus  de 14 fois.
@@ -48,6 +56,7 @@ public class Deck {
             de "ListPourMelanger" pour qu'elle ne soit plus crée dans le deck.*/
 
                 if (compteur>=14) {
+                    int verification=0;
                     for (Card carte : l_carte) {
                         if (carte.getId().equals("Eagle"))
                             verification++;
@@ -124,6 +133,17 @@ public class Deck {
 
         }
 
+        public static boolean EstUneCreature(String s)
+        {
+            boolean res = false;
+            if(s == "Eagle" || s == "Wolf" ||s == "Bear")
+            {
+                res = true;
+            }
+
+            return res;
+        }
+
         public int NombreAleatoire(int min , int max ) // Renvoi un nombre aléatoire entre les bornes choisies
         {
             Random rand = new Random();
@@ -139,24 +159,11 @@ public class Deck {
             Card carte_pioche=l_carte.get(0);
             l_carte.remove(0);
             return carte_pioche;
-
-
-
         }
-        public Card DiscardCard(Card cartepioche)
+        public Card DiscardCard(Card cartepioche) // What does it mean ?
         {
             return DrawCard();
-
-
         }
-
-
-
-
-
-
-
-
 
 
     }
