@@ -1,7 +1,11 @@
 package edu.insightr.spellmonger;
 
 /**
- * Ritual is either a curse or a blessing.
+ * Constructor for Ritual card which can be either a Curse or a Blessing.
+ * Ritual inherits its id from the superclass Card.
+ * Depending on the id the curse will be choosen in the main class.
+ *
+ * @param id an absolute string id giving the name relative to the card
  */
 public class Ritual extends Card{
 

@@ -1,5 +1,13 @@
 package edu.insightr.spellmonger;
 
+/**
+ * Constructor for Creature card which can be either an Eagle, a wolf or a Bear.
+ * Creature inherits its id from the superclass Card.
+ * Depending on the id the curse will be choosen in the main class.
+ *
+ * @param id an absolute string id giving the name relative to the card
+**/
+
 public class Creature extends Card
 {
     private int damage; //Damage change with switch
