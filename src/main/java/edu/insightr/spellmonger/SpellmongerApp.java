@@ -1,4 +1,10 @@
-// Mon test de Push
+/**
+ * SpellmongerApp
+ * Game which has 2 players having each 20 lifepoints and try to beat each other
+ * at a card game containing 70 cards which may be either a Ritual or a Creature.
+ * Each player draws a card after one another. Every card drawn out of the stack
+ * are discarded from the game.
+ */
 
 package edu.insightr.spellmonger;
 
@@ -16,7 +22,22 @@ public class SpellmongerApp {
     private Map<String, Integer> playersCreature = new HashMap<>(2);
     private List<Card> cardPool = new ArrayList<>(70);
 
+
+    /**
+     * Creates two players and sets them up with 20 life points each.
+     * Sets up the randomness of the card drawn during the game.
+     *
+     * @return          a cardname and associated points
+     */
     private SpellmongerApp() {
+        /**
+         *  @param ritualmod the type of randomness giving turns in types of cards drawn
+         * @param cardname the name of the card drawn from the stack
+         * @param compteur incrementation until the 70 total cards from the stack are drawn
+
+            */
+
+
         playersLifePoints.put("Alice", 20);
         playersLifePoints.put("Bob", 20);
         playersCreature.put("Alice", 0);
@@ -64,9 +85,14 @@ public class SpellmongerApp {
         }
     }
 
+
+    /**
+     * Starts the Spellmonger game.
+     * This continues until one of the players don't have anymore lifepoints
+     *
+     * @param args  arguments from the main
+     */
     public static void main(String[] args) {
-
-
         SpellmongerApp app = new SpellmongerApp();
 
         boolean onePlayerDead = false;
@@ -112,6 +138,15 @@ public class SpellmongerApp {
 
     }
 
+
+    /**
+     * Creates a new card from the stack between the 2 players.
+     *
+     *
+     * @param currentPlayer player drawing the first card
+     * @param opponent player drawing the second card
+     * @param currentCardNumber the current card number being played
+     */
     private void drawACard(String currentPlayer, String opponent, int currentCardNumber) {
         Card card =cardPool.get(currentCardNumber);
         if (card instanceof Creature) {
