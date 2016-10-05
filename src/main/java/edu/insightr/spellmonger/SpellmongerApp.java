@@ -1,4 +1,10 @@
-// Mon test de Push
+/**
+ * SpellmongerApp
+ * Game which has 2 players having each 20 lifepoints and try to beat each other
+ * at a card game containing 70 cards which may be either a Ritual or a Creature.
+ * Each player draws a card after one another. Every card drawn out of the stack
+ * are discarded from the game.
+ */
 
 package edu.insightr.spellmonger;
 
@@ -8,28 +14,66 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class SpellmongerApp {
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
 
     private Map<String, Integer>  playersLifePoints = new HashMap<>(2);
     private Map<String, Integer> playersCreature = new HashMap<>(2);
-    private List<String> cardPool = new ArrayList<>(70);
+    private List<Card> cardPool = new ArrayList<>(70);
 
+
+    /**
+     * Creates two players and sets them up with 20 life points each.
+     * Sets up the randomness of the card drawn during the game.
+     *
+     * @return          a cardname and associated points
+     */
     private SpellmongerApp() {
+        /**
+         *  @param ritualmod the type of randomness giving turns in types of cards drawn
+         * @param cardname the name of the card drawn from the stack
+         * @param compteur incrementation until the 70 total cards from the stack are drawn
+
+            */
+
+
         playersLifePoints.put("Alice", 20);
         playersLifePoints.put("Bob", 20);
         playersCreature.put("Alice", 0);
         playersCreature.put("Bob", 0);
         int ritualMod = 3;
+        String cardname="";
+        int compteur=0;
 
-        for (int i = 0; i < 70; i++) { //Creation du paquet de 70 cartes au hasard, ajouter les differents types de ritual
+        for (int i = 0; i < 70; i++) {
             if (i % ritualMod == 0) {
-                cardPool.add("Ritual");
+                if(i%2==0){
+                    cardname="Curse";
+                }
+                else{
+                    cardname="Blessing";
+                }
+                Ritual ritual= new Ritual(cardname);
+                cardPool.add(ritual);
             }
             if (i % ritualMod != 0) {
-                cardPool.add("Creature");
+                if(compteur==0){
+                    cardname="Wolf";
+                    compteur++;
+                }
+                else{
+                    if(compteur==1){
+                        cardname="Bear";
+                        compteur++;
+                    }
+                    else{
+                        cardname="Eagle";
+                        compteur=0;
+                    }
+                }
+                Creature creature= new Creature(cardname);
+                cardPool.add(creature);
             }
 
             if (ritualMod == 3) {
@@ -40,29 +84,19 @@ public class SpellmongerApp {
 
         }
     }
-    /*public static List<Creature> GenerationAleatoirePaquet(int nbCarte)
-    {
-        List<String> cardPool = new ArrayList<>(nbCarte);
-        int n=0;
-        while(n<nbCarte) {
-            int nbAleatoire = (int)(Math.random()*4+1);
-            switch (nbAleatoire) {
-                case 1:
-                    cardPool.add();
-                case 2:
 
-                case 3:
 
-                case 4:
-                case 5:
-
-            }
-            n++;
-        }
-
-    }
-    */
+    /**
+     * Starts the Spellmonger game.
+     * This continues until one of the players don't have anymore lifepoints
+     *
+     * @param args  arguments from the main
+     */
     public static void main(String[] args) {
+        /**
+         *
+         */
+
         SpellmongerApp app = new SpellmongerApp();
 
         boolean onePlayerDead = false;
@@ -108,11 +142,21 @@ public class SpellmongerApp {
 
     }
 
-    private void drawACard(String currentPlayer, String opponent, int currentCardNumber) {
 
-        if ("Creature".equalsIgnoreCase(cardPool.get(currentCardNumber))) {//si il pioche une creature
-            logger.info(currentPlayer + " draw a Creature");
-            playersCreature.put(currentPlayer, playersCreature.get(currentPlayer) + 1); // on ajoute 1 a ces creatures
+    /**
+     * Creates a new card from the stack between the 2 players.
+     *
+     *
+     * @param currentPlayer player drawing the first card
+     * @param opponent player drawing the second card
+     * @param currentCardNumber the current card number being played
+     */
+    private void drawACard(String currentPlayer, String opponent, int currentCardNumber) {
+        Card card =cardPool.get(currentCardNumber);
+        if (card instanceof Creature) {
+            card=(Creature) card;
+            logger.info(currentPlayer + " draw a"+card.getId());
+            playersCreature.put(currentPlayer, playersCreature.get(currentPlayer) + 1);
             int nbCreatures = playersCreature.get(currentPlayer);
             if (nbCreatures > 0) {
                 playersLifePoints.put(opponent, (playersLifePoints.get(opponent) - nbCreatures));
@@ -120,8 +164,9 @@ public class SpellmongerApp {
             }
 
         }
-        if ("Ritual".equalsIgnoreCase(cardPool.get(currentCardNumber))) {
-            logger.info(currentPlayer + " draw a Ritual");
+        if (card instanceof Ritual) {
+            card=(Ritual) card;
+            logger.info(currentPlayer + " draw a"+ card.getId());
             int nbCreatures = playersCreature.get(currentPlayer);
             if (nbCreatures > 0) {
                 playersLifePoints.put(opponent, (playersLifePoints.get(opponent) - nbCreatures - 3));
@@ -130,8 +175,5 @@ public class SpellmongerApp {
             logger.info(currentPlayer + " cast a ritual that deals 3 damages to " + opponent);
         }
     }
-
-
-
 
 }

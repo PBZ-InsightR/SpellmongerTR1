@@ -1,24 +1,24 @@
 package edu.insightr.spellmonger;
 
-/*
-** Card abstract class id means the "name" of the card
+/**
+ * Abstract class
+ * Constructor Card which has a string id to determine the type of card.
+ *
+
  */
 
 public abstract class Card {
-    private String id;
+ /**
+  * @param id an absolute string id giving the name relative to the card
+*/
 
-    public Card(String id) {
+    protected final String id;
+
+    public Card(String id){
         this.id = id;
     }
 
-    public String getId() {
+    public String getId(){
         return id;
     }
-
-
-
-
-
-
-
 }
