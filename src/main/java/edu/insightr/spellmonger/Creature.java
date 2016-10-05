@@ -13,15 +13,15 @@ public class Creature extends Card
 
         switch(id)
         {
-            case "1" :
+            case "Eagle" :
             name = "Eagle";
                 damage = 1;
                 break;
-            case "2" :
+            case "Wolf" :
             name="Wolf";
                 damage = 2;
                 break;
-            case "3" :
+            case "Bear" :
             name = "Bear"; 
                 damage = 3;
                 break;
@@ -32,6 +32,7 @@ public class Creature extends Card
         this.damage=damage;
 
     }
+
 
     public String getName(){
         return name;

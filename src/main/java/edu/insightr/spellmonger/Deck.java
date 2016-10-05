@@ -13,7 +13,7 @@ public class Deck {
 
         public Deck(){
 
-            l_carte= new ArrayList<>(70);
+            l_carte= new ArrayList<>(35);
             mix();
         }
 

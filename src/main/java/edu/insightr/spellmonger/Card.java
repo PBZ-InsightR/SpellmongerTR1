@@ -15,6 +15,16 @@ public abstract class Card {
         return id;
     }
 
+    public static boolean EstUneCreature(String s)
+    {
+        boolean res = false;
+        if(s == "Eagle" || s == "Wolf" ||s == "Bear")
+        {
+            res = true;
+        }
+
+        return res;
+    }
 
 
 
