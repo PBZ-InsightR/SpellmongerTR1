@@ -36,7 +36,7 @@ public class Deck {
         do {
 
             Carte new_carte=new Carte();
-            new_carte.SetName(ListPourMelanger.get(NombreAleatoire(0,4)));//choisit au hasard une carte.
+            new_carte.SetName(ListPourMelanger.get(NombreAleatoire(0,ListPourMelanger.size())));//choisit au hasard une carte.
             deck.add(new_carte);
             compteur++;
 
