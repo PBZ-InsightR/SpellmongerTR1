@@ -27,12 +27,17 @@ public class SpellmongerApp {
      * Creates two players and sets them up with 20 life points each.
      * Sets up the randomness of the card drawn during the game.
      *
-     * @param ritualmod the type of randomness giving turns in types of cards drawn
-     * @param cardname the name of the card drawn from the stack
-     * @param compteur incrementation until the 70 total cards from the stack are drawn
      * @return          a cardname and associated points
      */
     private SpellmongerApp() {
+        /**
+         *  @param ritualmod the type of randomness giving turns in types of cards drawn
+         * @param cardname the name of the card drawn from the stack
+         * @param compteur incrementation until the 70 total cards from the stack are drawn
+
+            */
+
+
         playersLifePoints.put("Alice", 20);
         playersLifePoints.put("Bob", 20);
         playersCreature.put("Alice", 0);
@@ -88,6 +93,10 @@ public class SpellmongerApp {
      * @param args  arguments from the main
      */
     public static void main(String[] args) {
+        /**
+         *
+         */
+
         SpellmongerApp app = new SpellmongerApp();
 
         boolean onePlayerDead = false;
