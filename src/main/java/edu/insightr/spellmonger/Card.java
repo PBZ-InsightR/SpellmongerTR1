@@ -5,7 +5,7 @@ package edu.insightr.spellmonger;
  */
 
 public abstract class Card {
-    private final String id;
+    protected final String id;
 
     public Card(String id){
         this.id = id;
