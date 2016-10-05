@@ -14,7 +14,7 @@ public class SpellmongerApp {
 
     private Map<String, Integer>  playersLifePoints = new HashMap<>(2);
     private Map<String, Integer> playersCreature = new HashMap<>(2);
-    private List<String> cardPool = new ArrayList<>(70);
+    private List<Card> cardPool = new ArrayList<>(70);
 
     private SpellmongerApp() {
         playersLifePoints.put("Alice", 20);
@@ -22,13 +22,37 @@ public class SpellmongerApp {
         playersCreature.put("Alice", 0);
         playersCreature.put("Bob", 0);
         int ritualMod = 3;
+        String cardname="";
+        int compteur=0;
 
         for (int i = 0; i < 70; i++) {
             if (i % ritualMod == 0) {
-                cardPool.add("Ritual");
+                if(i%2==0){
+                    cardname="Curse";
+                }
+                else{
+                    cardname="Blessing";
+                }
+                Ritual ritual= new Ritual(cardname);
+                cardPool.add(ritual);
             }
             if (i % ritualMod != 0) {
-                cardPool.add("Creature");
+                if(compteur==0){
+                    cardname="Wolf";
+                    compteur++;
+                }
+                else{
+                    if(compteur==1){
+                        cardname="Bear";
+                        compteur++;
+                    }
+                    else{
+                        cardname="Eagle";
+                        compteur=0;
+                    }
+                }
+                Creature creature= new Creature(cardname);
+                cardPool.add(creature);
             }
 
             if (ritualMod == 3) {
@@ -87,9 +111,10 @@ public class SpellmongerApp {
     }
 
     private void drawACard(String currentPlayer, String opponent, int currentCardNumber) {
-
-        if ("Creature".equalsIgnoreCase(cardPool.get(currentCardNumber))) {
-            logger.info(currentPlayer + " draw a Creature");
+        Card card =cardPool.get(currentCardNumber);
+        if (card instanceof Creature) {
+            card=(Creature) card;
+            logger.info(currentPlayer + " draw a"+card.getId());
             playersCreature.put(currentPlayer, playersCreature.get(currentPlayer) + 1);
             int nbCreatures = playersCreature.get(currentPlayer);
             if (nbCreatures > 0) {
@@ -98,8 +123,9 @@ public class SpellmongerApp {
             }
 
         }
-        if ("Ritual".equalsIgnoreCase(cardPool.get(currentCardNumber))) {
-            logger.info(currentPlayer + " draw a Ritual");
+        if (card instanceof Ritual) {
+            card=(Ritual) card;
+            logger.info(currentPlayer + " draw a"+ card.getId());
             int nbCreatures = playersCreature.get(currentPlayer);
             if (nbCreatures > 0) {
                 playersLifePoints.put(opponent, (playersLifePoints.get(opponent) - nbCreatures - 3));
