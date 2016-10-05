@@ -1,27 +1,25 @@
 package edu.insightr.spellmonger;
 
-/**
- * Created by Ken on 21/09/2016r
- */
-public class Creature {
-
-    private final String name;
-    private int damage;
+public class Creature extends Card
+{
+    private String name; //Name can't change
+    private int damage; //Damage change with switch
 
 
-    public Creature(String name)
-    {
+    public Creature(String id) 
+    { 
+        super (id);
         int damage=0; //Initialisation
-        this.name = name;
-        switch(name)
+
+        switch(id)
         {
-            case "Eagle":
+            case "Eagle" :
                 damage = 1;
                 break;
-            case "Wolf":
+            case "Wolf" :
                 damage = 2;
                 break;
-            case "Bear":
+            case "Bear" :
                 damage = 3;
                 break;
             default:
@@ -29,22 +27,20 @@ public class Creature {
                 break;
         }
         this.damage=damage;
+
     }
 
     public String getName(){
         return name;
     }
 
-    public int getDamage(){
+    public int getDamage(){ //Access for main, use this to alter life point
         return damage;
     }
 
     @Override
-    public String toString(){
+    public String toString(){       //Access for main, use this as an information message
         return "Creature is a " + name +
                 " and deals  " + damage;
-
     }
-
-
 }
