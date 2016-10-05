@@ -2,131 +2,86 @@
 
 package edu.insightr.spellmonger;
 
-import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+        public class SpellmongerApp {
 
-public class SpellmongerApp {
-    private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-
-    private Map<String, Integer>  playersLifePoints = new HashMap<>(2);
-    private Map<String, Integer> playersCreature = new HashMap<>(2);
-    private List<String> cardPool = new ArrayList<>(70);
-
-    private SpellmongerApp() {
-        playersLifePoints.put("Alice", 20);
-        playersLifePoints.put("Bob", 20);
-        playersCreature.put("Alice", 0);
-        playersCreature.put("Bob", 0);
-        int ritualMod = 3;
-
-        for (int i = 0; i < 70; i++) { //Creation du paquet de 70 cartes au hasard, ajouter les differents types de ritual
-            if (i % ritualMod == 0) {
-                cardPool.add("Ritual");
-            }
-            if (i % ritualMod != 0) {
-                cardPool.add("Creature");
-            }
-
-            if (ritualMod == 3) {
-                ritualMod = 2;
-            } else {
-                ritualMod = 3;
-            }
-
-        }
-    }
-    /*public static List<Creature> GenerationAleatoirePaquet(int nbCarte)
-    {
-        List<String> cardPool = new ArrayList<>(nbCarte);
-        int n=0;
-        while(n<nbCarte) {
-            int nbAleatoire = (int)(Math.random()*4+1);
-            switch (nbAleatoire) {
-                case 1:
-                    cardPool.add();
-                case 2:
-
-                case 3:
-
-                case 4:
-                case 5:
-
-            }
-            n++;
-        }
-
-    }
-    */
     public static void main(String[] args) {
-        SpellmongerApp app = new SpellmongerApp();
 
-       int bob =20;
+
+       int bob =20; //Points de vie Alice et bob
        int alice=20;
 
 
-        int bob_damage =0;
+        int bob_damage =0; //Dommage de alice et bob en fct de leur creature
         int alice_damage=0;
 
         Deck deck =new Deck();
         deck.mix();
         Card carte;
-        Creature crea=new Creature("0");
-        Ritual ritu = new Ritual("0");;
-        String id="";
-        int count=0;
-        int turn=0;
+        Creature crea=new Creature("0"); //Creature d'initialisation
+        Ritual ritu = new Ritual("0"); //Rituel d'initialisation
+        String id=""; //Id d'initialisation
+        int count=0; //Variable de test pour une creature/Curse/Blessing
+        int turn=0; //Nombres de tour
+
         while (alice>=0 && bob >=0) {
 
-            carte = deck.DrawCard();
-            id=carte.getId();
+            carte = deck.DrawCard(); //On tire une carte
+            id=carte.getId(); //On regarde son ID et en fonction de son id on va allez dans les différents test par la variable count
+
             if(id.equals("Wolf") || id.equals("Eagle") || id.equals("Bear"))
             {
-            crea= new Creature(id);
-            count=1;
+                crea= new Creature(id);
+                count=1;
             }
 
-            if(id.equals("Curse") || id.equals("Blessing"))
+            if(id.equals("Curse"))
             {
-            ritu= new Ritual(id);
-            count=2;
+                ritu= new Ritual(id);
+                count=2;
+            }
+            if(id.equals("Blessing"))
+            {
+                ritu= new Ritual(id);
+                count=3;
             }
 
-            if(turn%2==0) { //Alice TURN
+            if(turn%2==0) { //Alice TURN (tour pair)
 
-                if (count == 1) {
+                if (count == 1) { //Si creature, on augmente les dommages
                     alice_damage += crea.getDamage();
                 }
-                if (count == 2) {
+                if (count == 2) { //Si rituel curse on fait -3 sur bob
                     bob -= ritu.getValue();
                 }
-                bob-=alice_damage;
-            }
-            else { //Bob TURN
-
-                if (count == 1) {
-                    bob_damage += crea.getDamage();
-                }
-                if (count == 2) {
+                if (count == 3) { //Si rituel blessing on fait +3 sur alice
                     alice -= ritu.getValue();
                 }
-                alice-=bob_damage;
+                bob-=alice_damage; //On enleve la somme des dommages de bob dans les pdv d'alice
+            }
+            else { //Bob TURN (tour impair)
+
+                if (count == 1) { //Si creature, on augmente les dommages de bob
+                    bob_damage += crea.getDamage();
+                }
+                if (count == 2) {  //Si rituel curse on fait -3 sur alice
+                    alice -= ritu.getValue();
+                }
+                if (count == 3) { //Si rituel blessing on fait +3 sur bob
+                    bob -= ritu.getValue();
+                }
+                alice-=bob_damage; //On enleve la somme des dommages d'alice dans les pdv de bob
             }
 
             turn++;
-
-            System.out.println("alice damage= "+alice_damage);
-            System.out.println("bob_damage= "+bob_damage);
-            System.out.println("alice pdv= "+alice);
-            System.out.println("bob pdv= "+bob);
+            System.out.println("Fin du tour :"+turn);
+            System.out.println("Les dommages de Alice par tour sont de "+alice_damage);
+            System.out.println("Les dommages de Bob par tour sont de "+bob_damage);
+            System.out.println("Point de vie de Alice : "+alice);
+            System.out.println("Point de vie de Bob : "+bob);
 
         }
-        System.out.println("alice pdv= "+alice);
-        System.out.println("bob pdv= "+bob);
+
 
     }
 

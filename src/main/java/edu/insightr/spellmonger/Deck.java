@@ -1,88 +1,189 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package edu.insightr.spellmonger;
-
-import edu.insightr.spellmonger.Card;
-import edu.insightr.spellmonger.Creature;
-import edu.insightr.spellmonger.Ritual;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-
+import java.util.ArrayList;
+/**
+ * Created by Chloé on 04/10/2016.
+ */
 public class Deck {
-    private List<Card> l_carte = new ArrayList(70);
 
-    public Deck() {
-        this.mix();
+    private List<Card> l_carte;
+
+
+    public Deck(){
+
+        l_carte= new ArrayList<>(70);
+        mix();
     }
 
-    public void mix() {
-        ArrayList ListPourMelanger = new ArrayList();
-        int compteur = 1;
+
+    public void mix() // Melange
+    {
+        List<String> ListPourMelanger = new ArrayList<>();
+
+        int compteur=1;
+
         ListPourMelanger.add("Eagle");
         ListPourMelanger.add("Wolf");
         ListPourMelanger.add("Bear");
         ListPourMelanger.add("Curse");
         ListPourMelanger.add("Blessing");
-        HashMap hashmap = new HashMap();
-        Iterator carte_nom = ListPourMelanger.iterator();
 
-        while(carte_nom.hasNext()) {
-            String max_size = (String)carte_nom.next();
-            hashmap.put(max_size, Integer.valueOf(0));
+        // On prépare une table pour la vérification future
+        HashMap<String, Integer> hashmap = new HashMap<>();
+        for(String s: ListPourMelanger)
+        {
+            hashmap.put(s,0);
         }
 
         do {
-            String var6 = (String)ListPourMelanger.get(this.NombreAleatoire(0, ListPourMelanger.size() - 1));
-            if(EstUneCreature(var6)) {
-                Creature var7 = new Creature(var6);
-                this.l_carte.add(var7);
-            } else {
-                Ritual var8 = new Ritual(var6);
-                this.l_carte.add(var8);
+
+
+            String carte_nom = ListPourMelanger.get(NombreAleatoire(0,ListPourMelanger.size()-1));
+            //System.out.println(carte_nom);
+            if(EstUneCreature(carte_nom))
+            {
+                Card new_carte= new Creature(carte_nom);
+                l_carte.add(new_carte);
+            }
+            else
+            {
+                Card new_carte= new Ritual(carte_nom);//choisit au hasard une carte.
+                l_carte.add(new_carte);
             }
 
-            ++compteur;
-            byte var9 = 14;
-            hashmap.put(var6, Integer.valueOf(((Integer)hashmap.get(var6)).intValue() + 1));
-            if(((Integer)hashmap.get(var6)).intValue() == var9) {
-                ListPourMelanger.remove(var6);
+            compteur++;
+
+            /*dés qu'il y a eu au moins 14 cartes créees il est possible qu'un type soit repeté plus  de 14 fois.
+            Donc je vérifie pour chaque type,dans le deck,ci celui ci n'est pas present plus de 14 fois ; si c'est le cas je la supprime
+            de "ListPourMelanger" pour qu'elle ne soit plus crée dans le deck.*/
+
+            int max_size = 14;
+            hashmap.put(carte_nom, hashmap.get(carte_nom)+1);
+            if(hashmap.get(carte_nom) == max_size)
+            {
+                // on l'enleve du deck
+                ListPourMelanger.remove(carte_nom);
             }
-        } while(compteur < 70);
+                /*
+                if (compteur>=14) {
+                    int verification=0;
+                    for (Card carte : l_carte) {
+                        if (carte.getId().equals("Eagle"))
+                            verification++;
+                        if (verification > 14) {
+
+                            for (int i = 0; i < ListPourMelanger.size(); i++) {
+                                if ("Eagles".equals(ListPourMelanger.get(i)))
+                                    ListPourMelanger.remove(i);
+
+                            }
+
+                        }
+                    }
+                    verification = 0;
+                    for (Card carte : l_carte) {
+                        if (carte.getId().equals("Wolf"))
+                            verification++;
+                        if (verification > 14) {
+
+                            for (int i = 0; i < ListPourMelanger.size(); i++) {
+                                if ("Wolf".equals(ListPourMelanger.get(i)))
+                                    ListPourMelanger.remove(i);
+
+                            }
+
+                        }
+                    }
+                    verification = 0;
+                    for (Card carte : l_carte) {
+                        if (carte.getId().equals("Bear"))
+                            verification++;
+                        if (verification > 14) {
+
+                            for (int i = 0; i < ListPourMelanger.size(); i++) {
+                                if ("Bear".equals(ListPourMelanger.get(i)))
+                                    ListPourMelanger.remove(i);
+
+                            }
+
+                        }
+                    }
+                    verification = 0;
+                    for (Card carte : l_carte) {
+                        if (carte.getId().equals("Curse"))
+                            verification++;
+                        if (verification > 14) {
+
+                            for (int i = 0; i < ListPourMelanger.size(); i++) {
+                                if ("Curse".equals(ListPourMelanger.get(i)))
+                                    ListPourMelanger.remove(i);
+
+                            }
+
+                        }
+                    }
+                    verification = 0;
+                    for (Card carte : l_carte) {
+                        if (carte.getId().equals("Blessing"))
+                            verification++;
+                        if (verification > 14) {
+
+                            for (int i = 0; i < ListPourMelanger.size(); i++) {
+                                if ("Blessing".equals(ListPourMelanger.get(i)))
+                                    ListPourMelanger.remove(i);
+
+                            }
+
+                        }
+                    }
+                }
+                */
+
+        }while(compteur<70);
+
 
     }
 
-    public static boolean EstUneCreature(String s) {
+    public static boolean EstUneCreature(String s)
+    {
         boolean res = false;
-        if(s == "Eagle" || s == "Wolf" || s == "Bear") {
+        if(s == "Eagle" || s == "Wolf" ||s == "Bear")
+        {
             res = true;
         }
 
         return res;
     }
 
-    public int NombreAleatoire(int min, int max) {
+    public int NombreAleatoire(int min , int max ) // Renvoi un nombre aléatoire entre les bornes choisies
+    {
         Random rand = new Random();
-        int nombreAleatoire = rand.nextInt(max - min + 1) + min;
+
+        int nombreAleatoire= rand.nextInt(max-min+1)+min; //Formule mathematique
+
         return nombreAleatoire;
+
     }
 
-    public Card DrawCard() {
+    public Card DrawCard()
+    {
         Card carte_pioche = null;
-        if(this.l_carte.size() != 0) {
-            carte_pioche = (Card)this.l_carte.get(0);
-            this.l_carte.remove(0);
+        if(l_carte.size() == 0)
+        {
+        }
+        else
+        {
+            carte_pioche=l_carte.get(0);
+            l_carte.remove(0);
         }
 
         return carte_pioche;
     }
 
-    public Card DiscardCard(Card cartepioche) {
-        return this.DrawCard();
+    public Card DiscardCard(Card cartepioche) // Not sure what it means, draw a card and not use it ?
+    {
+        return DrawCard();
     }
 }
