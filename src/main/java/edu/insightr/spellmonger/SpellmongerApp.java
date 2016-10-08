@@ -2,88 +2,91 @@
 
 package edu.insightr.spellmonger;
 
+import org.apache.log4j.Logger;
 
-        public class SpellmongerApp {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
-    public static void main(String[] args) {
+import static edu.insightr.spellmonger.Card.EstUneCreature;
+
+public class SpellmongerApp {
+
+    private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
+
+    public static void main(String[] args)
+    {
+        Deck deck = new Deck();
 
 
-       int bob =20; //Points de vie Alice et bob
-       int alice=20;
+        Player alice = new Player("chloe", 20);
+        Player bob = new Player("daniel", 20);
 
+        List<Player> players = new ArrayList<>(2);
+        players.add(alice);
+        players.add(bob);
 
-        int bob_damage =0; //Dommage de alice et bob en fct de leur creature
-        int alice_damage=0;
+        int currentCardNumber = 0;
+        int roundCounter = 1;
 
-        Deck deck =new Deck();
-        deck.mix();
-        Card carte;
-        Creature crea=new Creature("0"); //Creature d'initialisation
-        Ritual ritu = new Ritual("0"); //Rituel d'initialisation
-        String id=""; //Id d'initialisation
-        int count=0; //Variable de test pour une creature/Curse/Blessing
-        int turn=0; //Nombres de tour
+        boolean jeu_fini = false;
+        while (!jeu_fini) {
+            // not a good solution ...
+            Player current_player = players.get((roundCounter+1) % 2);
+            Player opponent = players.get(roundCounter % 2);
 
-        while (alice>=0 && bob >=0) {
+            //logger.info("\n");
+            //logger.info("***** ROUND " + roundCounter);
 
-            carte = deck.DrawCard(); //On tire une carte
-            id=carte.getId(); //On regarde son ID et en fonction de son id on va allez dans les différents test par la variable count
-
-            if(id.equals("Wolf") || id.equals("Eagle") || id.equals("Bear"))
+            System.out.println("Entering round " + roundCounter + "...");
+            Card card = deck.DrawCard();
+            if(card == null)
             {
-                crea= new Creature(id);
-                count=1;
+                jeu_fini = true;
+                break;
             }
 
-            if(id.equals("Curse"))
+            if(Card.EstUneCreature(card.getId()))
             {
-                ritu= new Ritual(id);
-                count=2;
+                current_player.ajouter_creature((Creature)card);
             }
-            if(id.equals("Blessing"))
+            else
             {
-                ritu= new Ritual(id);
-                count=3;
+                // apply the ritual :) not a good idea to do it here
+                Ritual ritual = (Ritual)card;
+                if(card.getId() == "Blessing")
+                {
+                    current_player.soin(ritual.getValue());
+                }
+                else if(card.getId() == "Curse")
+                {
+                    opponent.damage(-ritual.getValue());
+                }
             }
 
-            if(turn%2==0) { //Alice TURN (tour pair)
+            int degats = current_player.calcul_degats_creatures();
 
-                if (count == 1) { //Si creature, on augmente les dommages
-                    alice_damage += crea.getDamage();
-                }
-                if (count == 2) { //Si rituel curse on fait -3 sur bob
-                    bob -= ritu.getValue();
-                }
-                if (count == 3) { //Si rituel blessing on fait +3 sur alice
-                    alice -= ritu.getValue();
-                }
-                bob-=alice_damage; //On enleve la somme des dommages de bob dans les pdv d'alice
-            }
-            else { //Bob TURN (tour impair)
+            opponent.damage(degats);
 
-                if (count == 1) { //Si creature, on augmente les dommages de bob
-                    bob_damage += crea.getDamage();
-                }
-                if (count == 2) {  //Si rituel curse on fait -3 sur alice
-                    alice -= ritu.getValue();
-                }
-                if (count == 3) { //Si rituel blessing on fait +3 sur bob
-                    bob -= ritu.getValue();
-                }
-                alice-=bob_damage; //On enleve la somme des dommages d'alice dans les pdv de bob
+            if(opponent.est_mort())
+            {
+                jeu_fini = true;
+                logger.info(opponent.get_name() + " has " + opponent.get_pv() + " life points, he is dead, congrats.");
+                break;
             }
 
-            turn++;
-            System.out.println("Fin du tour :"+turn);
-            System.out.println("Les dommages de Alice par tour sont de "+alice_damage);
-            System.out.println("Les dommages de Bob par tour sont de "+bob_damage);
-            System.out.println("Point de vie de Alice : "+alice);
-            System.out.println("Point de vie de Bob : "+bob);
 
+
+            roundCounter++;
         }
 
-
     }
+
+
+
+
 
 
 

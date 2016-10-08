@@ -14,12 +14,15 @@ public class Creature extends Card
         switch(id)
         {
             case "Eagle" :
+            name = "Eagle";
                 damage = 1;
                 break;
             case "Wolf" :
+            name="Wolf";
                 damage = 2;
                 break;
             case "Bear" :
+            name = "Bear"; 
                 damage = 3;
                 break;
             default:
@@ -29,6 +32,7 @@ public class Creature extends Card
         this.damage=damage;
 
     }
+
 
     public String getName(){
         return name;
