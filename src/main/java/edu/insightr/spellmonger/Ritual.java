@@ -14,10 +14,10 @@ public class Ritual extends Card {
 
         switch(id) {
             case "Curse":
-                this.value = -3;
+                this.value = 3;
                 break;
             case "Blessing":
-                this.value = 3;
+                this.value = -3;
                 break;
             default:
                 System.out.println("This is not a ritual.");
@@ -26,7 +26,7 @@ public class Ritual extends Card {
 
     }
 
-    public int getValue() {
+    int getValue() {
         return this.value;
     }
 }

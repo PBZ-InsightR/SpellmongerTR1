@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import static edu.insightr.spellmonger.Card.EstUneCreature;
 
 public class SpellmongerApp {
 
@@ -18,63 +17,65 @@ public class SpellmongerApp {
 
     public static void main(String[] args)
     {
-        Deck deck = new Deck();
+        Deck deck = new Deck(); //Creer un deck de 70 cartes aléatoire
 
 
-        Player alice = new Player("chloe", 20);
-        Player bob = new Player("daniel", 20);
+        Player alice = new Player("Bob", 20);
+        Player bob = new Player("Alice", 20);
 
         List<Player> players = new ArrayList<>(2);
         players.add(alice);
         players.add(bob);
 
-        int currentCardNumber = 0;
-        int roundCounter = 1;
+        int roundCounter = 0;
 
         boolean jeu_fini = false;
+        int degats;
         while (!jeu_fini) {
-            // not a good solution ...
-            Player current_player = players.get((roundCounter+1) % 2);
-            Player opponent = players.get(roundCounter % 2);
 
-            //logger.info("\n");
-            //logger.info("***** ROUND " + roundCounter);
 
-            System.out.println("Entering round " + roundCounter + "...");
+            Player current_player = players.get(roundCounter % 2); //Definit le tour des joueurs
+            Player opponent = players.get((roundCounter+1) % 2 );
+
+            System.out.println();
+            System.out.println("Entering round " + roundCounter + "..."); //INFO
             Card card = deck.DrawCard();
-            if(card == null)
+
+            System.out.println(current_player.get_name()+" draw a "+ card.getId()); //INFO
+
+            if(card.getId()==null)
             {
                 jeu_fini = true;
-                break;
+                System.out.println("Plus de carte ! EGALITE !");
             }
 
             if(Card.EstUneCreature(card.getId()))
             {
-                current_player.ajouter_creature((Creature)card);
+                Creature actuelle_creature = new Creature(card.getId());
+                degats = actuelle_creature.getDamage();
             }
             else
             {
-                // apply the ritual :) not a good idea to do it here
-                Ritual ritual = (Ritual)card;
-                if(card.getId() == "Blessing")
-                {
-                    current_player.soin(ritual.getValue());
-                }
-                else if(card.getId() == "Curse")
-                {
-                    opponent.damage(-ritual.getValue());
-                }
+               Ritual actuelle_rituel = new Ritual(card.getId());
+               degats = actuelle_rituel.getValue();
             }
 
-            int degats = current_player.calcul_degats_creatures();
+            if (degats>0) {
+                opponent.damage(degats); //Inflige des degats a l'adversaire
+                System.out.println(opponent.get_name()+" is hurt, "+ opponent.get_pv()+" hp left!");
 
-            opponent.damage(degats);
+            }
+            else {
+                current_player.damage(degats); //Se soigne sinon (Pas top)
+                System.out.println(current_player.get_name()+" gets healed,  "+ current_player.get_pv()+" hp left!");
+            }
+
+
 
             if(opponent.est_mort())
             {
                 jeu_fini = true;
                 logger.info(opponent.get_name() + " has " + opponent.get_pv() + " life points, he is dead, congrats.");
-                break;
             }
 
 
