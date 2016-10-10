@@ -8,117 +8,88 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+
 
 public class SpellmongerApp {
-    //Creation of loggeur for warning (and test)
+
     private static final Logger logger = Logger.getLogger(SpellmongerApp.class);
-
-    // Name and life of player
-    private Map<String, Integer>  playersLifePoints = new HashMap<>(2);
-    private Map<String, Integer> playersCreature = new HashMap<>(2);
-    //List of Name Card
-    private List<String> cardPool = new ArrayList<>(70);
-
-    private SpellmongerApp()
-    {
-        // Creation of 2 players and deck by a "random system" (A confirmer)
-        playersLifePoints.put("Alice", 20);
-        playersLifePoints.put("Bob", 20);
-        playersCreature.put("Alice", 0);
-        playersCreature.put("Bob", 0);
-        int ritualMod = 3;
-
-        for (int i = 0; i < 70; i++)
-        {
-            if (i % ritualMod == 0) {
-                cardPool.add("Ritual");
-            }
-            if (i % ritualMod != 0) {
-                cardPool.add("Creature");
-            }
-
-            if (ritualMod == 3) {
-                ritualMod = 2;
-            } else {
-                ritualMod = 3;
-            }
-
-        }
-    }
 
     public static void main(String[] args)
     {
-        //
-        SpellmongerApp app = new SpellmongerApp();
+        Deck deck = new Deck(); //Creer un deck de 70 cartes aléatoire
 
 
-        boolean onePlayerDead = false;
-        String currentPlayer = "Alice";
-        String opponent = "Bob";
-        int currentCardNumber = 0;
-        int roundCounter = 1;
-        String winner = null;
+        Player alice = new Player("Bob", 20);
+        Player bob = new Player("Alice", 20);
 
-        while (!onePlayerDead)
-        {
-            logger.info("\n");
-            logger.info("***** ROUND " + roundCounter);
+        List<Player> players = new ArrayList<>(2);
+        players.add(alice);
+        players.add(bob);
 
-            app.drawACard(currentPlayer, opponent, currentCardNumber);
+        int roundCounter = 0;
 
-            logger.info(opponent + " has " + app.playersLifePoints.get(opponent) + " life points and " + currentPlayer + " has " + app.playersLifePoints.get(currentPlayer) + " life points ");
+        boolean jeu_fini = false;
+        int degats;
+        while (!jeu_fini) {
 
-            if (app.playersLifePoints.get(currentPlayer) <= 0) {
-                winner = opponent;
-                onePlayerDead = true;
+
+            Player current_player = players.get(roundCounter % 2); //Definit le tour des joueurs
+            Player opponent = players.get((roundCounter+1) % 2 );
+
+            System.out.println();
+            System.out.println("Entering round " + roundCounter + "..."); //INFO
+            Card card = deck.DrawCard();
+
+            System.out.println(current_player.get_name()+" draw a "+ card.getId()); //INFO
+
+            if(card.getId()==null)
+            {
+                jeu_fini = true;
+                System.out.println("Plus de carte ! EGALITE !");
             }
-            if (app.playersLifePoints.get(opponent) <= 0) {
-                winner = currentPlayer;
-                onePlayerDead = true;
+
+            if(Card.EstUneCreature(card.getId()))
+            {
+                Creature actuelle_creature = new Creature(card.getId());
+                degats = actuelle_creature.getDamage();
+            }
+            else
+            {
+                Ritual actuelle_rituel = new Ritual(card.getId());
+                degats = actuelle_rituel.getValue();
             }
 
-            if ("Alice".equalsIgnoreCase(currentPlayer)) {
-                currentPlayer = "Bob";
-                opponent = "Alice";
-            } else {
-                currentPlayer = "Alice";
-                opponent = "Bob";
+            if (degats>0) {
+                opponent.damage(degats); //Inflige des degats a l'adversaire
+                System.out.println(opponent.get_name()+" is hurt, "+ opponent.get_pv()+" hp left!");
+
             }
-            currentCardNumber++;
+            else {
+                current_player.damage(degats); //Se soigne sinon (Pas top)
+                System.out.println(current_player.get_name()+" gets healed,  "+ current_player.get_pv()+" hp left!");
+            }
+
+
+
+            if(opponent.est_mort())
+            {
+                jeu_fini = true;
+                logger.info(opponent.get_name() + " has " + opponent.get_pv() + " life points, he is dead, congrats.");
+            }
+
+
+
             roundCounter++;
         }
 
-        logger.info("\n");
-        logger.info("******************************");
-        logger.info("THE WINNER IS " + winner + " !!!");
-        logger.info("******************************");
-
-
     }
 
-    private void drawACard(String currentPlayer, String opponent, int currentCardNumber)
-    {
 
-        if ("Creature".equalsIgnoreCase(cardPool.get(currentCardNumber)))
-        {
-            logger.info(currentPlayer + " draw a Creature");
-            playersCreature.put(currentPlayer, playersCreature.get(currentPlayer) + 1);
-            int nbCreatures = playersCreature.get(currentPlayer);
-            if (nbCreatures > 0) {
-                playersLifePoints.put(opponent, (playersLifePoints.get(opponent) - nbCreatures));
-                logger.info("The " + nbCreatures + " creatures of " + currentPlayer + " attack and deal " + nbCreatures + " damages to its opponent");
-            }
 
-        }
-        if ("Ritual".equalsIgnoreCase(cardPool.get(currentCardNumber))) {
-            logger.info(currentPlayer + " draw a Ritual");
-            int nbCreatures = playersCreature.get(currentPlayer);
-            if (nbCreatures > 0) {
-                playersLifePoints.put(opponent, (playersLifePoints.get(opponent) - nbCreatures - 3));
-                logger.info("The " + nbCreatures + " creatures of " + currentPlayer + " attack and deal " + nbCreatures + " damages to its opponent");
-            }
-            logger.info(currentPlayer + " cast a ritual that deals 3 damages to " + opponent);
-        }
-    }
+
+
+
+
 
 }

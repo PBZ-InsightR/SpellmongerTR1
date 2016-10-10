@@ -4,14 +4,33 @@ package edu.insightr.spellmonger;
 ** Card abstract class id means the "name" of the card
  */
 
-public abstract class Card {
-    private final String id;
+import java.util.Objects;
 
-    public Card(String id){
+abstract class Card {
+    private String id;
+
+    Card(String id) {
         this.id = id;
     }
 
-    public String getId(){
+    String getId() {
         return id;
     }
+
+    static boolean EstUneCreature(String s)
+    {
+        boolean res = false;
+        if(Objects.equals(s, "Eagle") || Objects.equals(s, "Wolf") || Objects.equals(s, "Bear"))
+        {
+            res = true;
+        }
+
+        return res;
+    }
+
+
+
+
+
+
 }
