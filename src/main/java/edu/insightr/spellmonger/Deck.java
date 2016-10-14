@@ -4,17 +4,17 @@ import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 /**
- * Created by Chloé on 04/10/2016.
+ * Created by Chloé +  Dams on 04/10/2016.
  *
  */
 class Deck {
 
-    private List<Card> l_carte;
+    private List<Card> l_carte ;
 
 
     Deck(){
 
-        l_carte= new ArrayList<>(70);
+        l_carte= new ArrayList<>(40);
         mix();
     }
 
@@ -24,12 +24,14 @@ class Deck {
         List<String> ListPourMelanger = new ArrayList<>();
 
         int compteur=1;
+        int max_size=0;
 
         ListPourMelanger.add("Eagle");
         ListPourMelanger.add("Wolf");
         ListPourMelanger.add("Bear");
         ListPourMelanger.add("Curse");
         ListPourMelanger.add("Blessing");
+        ListPourMelanger.add("Shield");
 
         // On prépare une table pour la vérification future
         HashMap<String, Integer> hashmap = new HashMap<>();
@@ -46,29 +48,53 @@ class Deck {
             if(EstUneCreature(carte_nom))
             {
                 Card new_carte= new Creature(carte_nom);
-                l_carte.add(new_carte);
+                  l_carte.add(new_carte);
+
+                // Chaque Créature doit être presente au maximum 10 fois .
+                max_size = 10;
+                hashmap.put(carte_nom, hashmap.get(carte_nom)+1);
+                if(hashmap.get(carte_nom) == max_size)
+                {
+                    // on l'enleve du deck
+                    ListPourMelanger.remove(carte_nom);
+                }
             }
             else
             {
                 Card new_carte= new Ritual(carte_nom);//choisit au hasard une carte.
                 l_carte.add(new_carte);
+            // Les rituels ne sont pas tous present en nombre identique.
+                if (new_carte.getId().equals("Curse")) {
+                    max_size = 3;
+                    hashmap.put(carte_nom, hashmap.get(carte_nom) + 1);
+                    if (hashmap.get(carte_nom) == max_size) {
+
+                        ListPourMelanger.remove(carte_nom);
+                    }
+                }
+                else if (new_carte.getId().equals("Blessing")) {
+                    max_size = 2;
+                    hashmap.put(carte_nom, hashmap.get(carte_nom) + 1);
+                        if (hashmap.get(carte_nom) == max_size) {
+
+                            ListPourMelanger.remove(carte_nom);
+                        }
+                    else {
+                        max_size = 5;
+                        hashmap.put(carte_nom, hashmap.get(carte_nom) + 1);
+                            if (hashmap.get(carte_nom) == max_size) {
+
+                                ListPourMelanger.remove(carte_nom);
+                            }
+                        }
+                }
             }
 
             compteur++;
 
-            /*dés qu'il y a eu au moins 14 cartes créees il est possible qu'un type soit repeté plus  de 14 fois.
-            Donc je vérifie pour chaque type,dans le deck,ci celui ci n'est pas present plus de 14 fois ; si c'est le cas je la supprime
-            de "ListPourMelanger" pour qu'elle ne soit plus crée dans le deck.*/
 
-            int max_size = 14;
-            hashmap.put(carte_nom, hashmap.get(carte_nom)+1);
-            if(hashmap.get(carte_nom) == max_size)
-            {
-                // on l'enleve du deck
-                ListPourMelanger.remove(carte_nom);
-            }
 
-        }while(compteur<70);
+        }while(compteur<40);
 
 
     }
