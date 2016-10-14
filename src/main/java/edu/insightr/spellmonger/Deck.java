@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 class Deck {
 
-    private List<Card> l_carte ;
+    private List<Card>   l_carte ;
 
 
     Deck(){
