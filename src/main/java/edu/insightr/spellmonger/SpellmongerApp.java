@@ -28,55 +28,78 @@ public class SpellmongerApp {
         int roundCounter = 0;
 
         boolean jeu_fini = false;
-        int degats;
+        int degats_joueur1;
+        int degats_joueur2;
         while (!jeu_fini) {
 
 
-            Player current_player = players.get(roundCounter % 2); //Definit le tour des joueurs
-            Player opponent = players.get((roundCounter+1) % 2 );
+            Player J1 = alice; //Definit le tour des joueurs
+            Player J2 = bob;
 
             System.out.println();
             System.out.println("Entering round " + roundCounter + "..."); //INFO
-            Card card = deck.DrawCard();
 
-            System.out.println(current_player.get_name()+" draw a "+ card.getId()); //INFO
+            Card card1 = deck.DrawCard();
+            Card card2 = deck.DrawCard();
 
-            if(card.getId()==null)
+            System.out.println(J1.get_name()+" draw a "+ card1.getId()); //INFO
+            System.out.println(J2.get_name()+" draw a "+ card2.getId()); //INFO
+
+            if(card1==null || card2==null )
             {
                 jeu_fini = true;
-                System.out.println("Plus de carte ! EGALITE !");
+                System.out.println("Plus de cartes ! EGALITE !");
             }
 
-            if(Card.EstUneCreature(card.getId()))
+            if(card1 instanceof Creature && card2 instanceof Creature )
             {
-                Creature actuelle_creature = new Creature(card.getId());
-                degats = actuelle_creature.getDamage();
+                int damage_creature_J1 = ((Creature) card1).getDamage();
+                int damage_creature_J2 = ((Creature) card2).getDamage();
+
+                int tab[]={ damage_creature_J1, damage_creature_J2 };
+
+
+                //IMPLEMENTER POUR 2 CREA
             }
+           if(card1 instanceof Creature  &&  card2 instanceof Creature )
+            {
+                int damage_rituel_J1 = ((Creature) card1).getDamage();
+                int damage_rituel_J2 = ((Creature) card2).getDamage();
+
+                //IMPLEMENTER POUR 2 Ritu
+            }
+
             else
             {
-                Ritual actuelle_rituel = new Ritual(card.getId());
-                degats = actuelle_rituel.getValue();
-            }
 
-            if (degats>0) {
-                opponent.damage(degats); //Inflige des degats a l'adversaire
-                System.out.println(opponent.get_name()+" is hurt, "+ opponent.get_pv()+" hp left!");
 
-            }
-            else {
-                current_player.damage(degats); //Se soigne sinon (Pas top)
-                System.out.println(current_player.get_name()+" gets healed,  "+ current_player.get_pv()+" hp left!");
             }
 
 
 
+
+
+
+
+
+
+
+            /*Implementer une méthode pour comparer les dégats des joueurs
+            if (degats_joueur1==0 || degats_joueur2==0){
+                degats_joueur1=0;
+                degats_joueur2=0;
+            }
+            if (degats_joueur1>degats_joueur2) {
+                J2.damage(degats_joueur1-degats_joueur2); //Inflige des degats a l'adversaire
+                System.out.println(J2.get_name()+" is hurt, "+ J2.get_pv()+" hp left!");
+
+            }
             if(opponent.est_mort())
             {
                 jeu_fini = true;
                 logger.info(opponent.get_name() + " has " + opponent.get_pv() + " life points, he is dead, congrats.");
             }
-
-
+            */
 
             roundCounter++;
         }
