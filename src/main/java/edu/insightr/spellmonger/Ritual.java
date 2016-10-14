@@ -7,7 +7,9 @@ package edu.insightr.spellmonger;
 
 
 public class Ritual extends Card {
-    private final int value;
+    private int value;
+    private boolean shield=false;
+
 
     public Ritual(String id) {
         super(id);
@@ -16,9 +18,15 @@ public class Ritual extends Card {
             case "Curse":
                 this.value = 3;
                 break;
+
+            case "Shield":
+                this.shield=true;
+                break;
+
             case "Blessing":
                 this.value = -3;
                 break;
+
             default:
                 System.out.println("This is not a ritual.");
                 this.value = 0;
