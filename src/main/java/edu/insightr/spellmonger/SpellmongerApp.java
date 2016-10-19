@@ -18,6 +18,7 @@ public class SpellmongerApp {
         Deck deck = new Deck(); //Creer un deck de 70 cartes aléatoire
 
 
+
         Player alice = new Player("Bob", 20);
         Player bob = new Player("Alice", 20);
 
