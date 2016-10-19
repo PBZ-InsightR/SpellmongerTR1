@@ -20,7 +20,6 @@ abstract class Card {
     static boolean EstUneCreature(String s)
     {
         boolean res = false;
-
         if(Objects.equals(s, "Eagle") || Objects.equals(s, "Wolf") || Objects.equals(s, "Bear"))
         {
             res = true;
@@ -28,5 +27,10 @@ abstract class Card {
 
         return res;
     }
+
+
+
+
+
 
 }
