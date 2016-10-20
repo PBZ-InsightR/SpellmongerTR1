@@ -21,7 +21,7 @@ class Player {
         points_de_vie -= degats;
     }
 
-    boolean est_mort() { return points_de_vie < 0; }
+    boolean est_mort() { return points_de_vie <= 0; }
     boolean est_en_vie() { return points_de_vie > 0; }
 
 

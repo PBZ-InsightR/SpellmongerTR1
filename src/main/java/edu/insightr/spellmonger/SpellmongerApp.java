@@ -196,11 +196,10 @@ public class SpellmongerApp {
             }
 
 
-            if (J1.est_en_vie() && J2.est_en_vie())
-            {
+
                 System.out.println(J1.get_name() +" got "+J1.get_pv()+" life points");
                 System.out.println(J2.get_name() +" got "+J2.get_pv()+" life points");
-            }
+            
 
             roundCounter++;
         }
