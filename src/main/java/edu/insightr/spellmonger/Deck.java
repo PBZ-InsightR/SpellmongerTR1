@@ -9,8 +9,8 @@ import java.util.ArrayList;
  */
 class Deck {
 
-    private List<Card> l_carte;
-    private List<Card> la_main;
+     private List<Card> l_carte;
+     private List<Card> la_main= new ArrayList<>(20);
 
     Deck(){
 
@@ -122,9 +122,13 @@ class Deck {
     List<Card> CreationMain() {
         Card carte_pioche = null;
         if (l_carte.size() != 0) {
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 20; i++)
+            {
+                try {
                 carte_pioche = l_carte.get(0);
                 l_carte.remove(0);
+                }
+                catch (IndexOutOfBoundsException e){}
                 la_main.add(carte_pioche);
             }
 
