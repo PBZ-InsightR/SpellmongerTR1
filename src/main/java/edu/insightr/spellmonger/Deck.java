@@ -117,6 +117,8 @@ class Deck {
 
     }
 
+    //Permet à un joueur de recuperer une main de 20 cartes.
+
     List<Card> CreationMain() {
         Card carte_pioche = null;
         if (l_carte.size() != 0) {
@@ -134,6 +136,58 @@ class Deck {
 
 
     }
+
+    // Fonction qui lorsqu'on lui donne une main affiche le contenu de la main du joueur concerné.
+
+    public void AfficherMain(List<Card> Une_main ){
+
+
+        HashMap<String,Integer> hashmap = new HashMap();
+        String[] tab = { " Eagle , Wolf , Bear , Curse , Blessing , Shield"};
+
+        for (String carte :tab) {
+            hashmap.put(carte,0);
+        }
+
+
+        for (Card card : Une_main) {
+
+            switch (card.getId()){
+
+                case "Eagle":
+                    hashmap.put("Eagle",hashmap.get("Eagle")+1);
+
+                case "Wolf":
+                    hashmap.put("Wolf", hashmap.get("Wolf")+1);
+
+                case "Bear" :
+                    hashmap.put("Bear", hashmap.get("Bear")+1);
+
+                case "Curse" :
+                    hashmap.put("Curse", hashmap.get("Curse")+1);
+
+                case "Blessing" :
+                    hashmap.put("Blessing", hashmap.get("Blessing")+1);
+
+                case "Shield" :
+                    hashmap.put("Shield", hashmap.get("Shield")+1);
+
+            }
+        }
+
+        System.out.print(
+                "This is your hand : "+
+                "Eagle = "+hashmap.get("Eagle")+
+                "Wolf = "+hashmap.get("Wolf")+
+                "Bear = "+hashmap.get("Bear")+
+                "Curse = "+hashmap.get("Curse")+
+                "Blessing = "+hashmap.get("Blessing")+
+                 "Shield =  "+hashmap.get("Eagle")
+        );
+
+
+    }
+
 
 
 }
