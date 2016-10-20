@@ -21,6 +21,7 @@ public class Ritual extends Card {
 
             case "Shield":
                 this.shield=true;
+                this.value=0;
                 break;
 
             case "Blessing":
@@ -37,4 +38,5 @@ public class Ritual extends Card {
     int getValue() {
         return this.value;
     }
+    boolean getShield(){return this.shield;}
 }

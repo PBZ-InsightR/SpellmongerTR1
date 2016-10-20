@@ -3,10 +3,8 @@ package edu.insightr.spellmonger;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
+
 
 
 public class SpellmongerApp {
@@ -26,11 +24,12 @@ public class SpellmongerApp {
         players.add(alice);
         players.add(bob);
 
+        List<Card> deck_alice = deck.CreationMain();
+        List<Card> deck_bob = deck.CreationMain();
+
         int roundCounter = 0;
 
         boolean jeu_fini = false;
-        int degats_joueur1;
-        int degats_joueur2;
         while (!jeu_fini) {
 
 
@@ -40,8 +39,13 @@ public class SpellmongerApp {
             System.out.println();
             System.out.println("Entering round " + roundCounter + "..."); //INFO
 
-            Card card1 = deck.DrawCard();
-            Card card2 = deck.DrawCard();
+            Card card1 = deck_alice.get(roundCounter); //Pas encore d'ia, donc le joueur joue la carte 1 au t1, la carte 2 au t2, etc ..
+            Card card2 = deck_bob.get(roundCounter);
+
+            System.out.println("Main de alice :");
+            deck.AfficherMain(deck_alice); //On affiche les main des joueurs.
+            System.out.println("Main de bob :");
+            deck.AfficherMain(deck_bob);
 
             System.out.println(J1.get_name()+" draw a "+ card1.getId()); //INFO
             System.out.println(J2.get_name()+" draw a "+ card2.getId()); //INFO
@@ -52,55 +56,135 @@ public class SpellmongerApp {
                 System.out.println("Plus de cartes ! EGALITE !");
             }
 
+              /*
+             4 cas  sont possible ici ! Rituel vs Rituel,
+                                          Crea vs Crea,
+                                          Rituel vs Crea
+                                          Crea vs Rituel.
+               On gere tout les cas possibles.
+
+              */
+
+
+
             if(card1 instanceof Creature && card2 instanceof Creature )
             {
                 int damage_creature_J1 = ((Creature) card1).getDamage();
                 int damage_creature_J2 = ((Creature) card2).getDamage();
 
-                int tab[]={ damage_creature_J1, damage_creature_J2 };
-
-
-                //IMPLEMENTER POUR 2 CREA
+               if(damage_creature_J1>damage_creature_J2)
+                    {
+                        J2.damage(damage_creature_J1-damage_creature_J2);
+                    }
+                else
+                    {
+                        J1.damage(damage_creature_J2-damage_creature_J1);
+                    }
             }
-           if(card1 instanceof Creature  &&  card2 instanceof Creature )
+
+           if(card1 instanceof Ritual  &&  card2 instanceof Ritual )
             {
-                int damage_rituel_J1 = ((Creature) card1).getDamage();
-                int damage_rituel_J2 = ((Creature) card2).getDamage();
+                boolean shield_J1 = ((Ritual) card1).getShield();
+                boolean shield_J2 = ((Ritual) card2).getShield();
 
-                //IMPLEMENTER POUR 2 Ritu
+                int damage_rituel_J1 = ((Ritual) card1).getValue();
+                int damage_rituel_J2 = ((Ritual) card2).getValue();
+
+                if(shield_J2 && damage_rituel_J1>0) //Si shield J2 on annule les degat du J1
+                    {
+                        damage_rituel_J1=0;
+                    }
+                if(shield_J1 && damage_rituel_J2>0) //Si shield J1 on annule les degat du J2
+                    {
+                        damage_rituel_J2=0;
+                    }
+
+                if(damage_rituel_J1>=0)//Si curse J1 on inflige a J2
+                    {
+                        J2.damage(damage_rituel_J1);
+                    }
+                else
+                    {
+                        J1.damage(damage_rituel_J1); //Sinon on soigne J1 pour son rituel soin
+                    }
+
+                if(damage_rituel_J2>=0) //Si curse J2 on inflige a J1
+                    {
+                        J1.damage(damage_rituel_J2);
+                    }
+                else                                //Sinon on soigne J1 pour son rituel soin
+                    {
+                        J2.damage(damage_rituel_J2);
+                    }
+
             }
 
-            else
+            if(card1 instanceof Ritual  &&  card2 instanceof Creature )
             {
+                boolean shield_J1 = ((Ritual) card1).getShield();
+                int damage_rituel_J1 = ((Ritual) card1).getValue();
+                int damage_creature_J2 = ((Creature) card2).getDamage();
 
+                if (!shield_J1) {
 
+                    if (damage_rituel_J1 > 0) {
+                        J1.damage(damage_creature_J2);
+                        J2.damage(damage_rituel_J1);
+                    }
+                    if (damage_rituel_J1 < 0) {
+                        J1.damage(damage_creature_J2);
+                        J1.damage(damage_rituel_J1); //soin
+                    }
+                }
+            }
+
+            if(card2 instanceof Ritual  &&  card1 instanceof Creature ) //Copié collé du dessus en inversant les joueurs et les cartes desole
+            {
+                boolean shield_J2 = ((Ritual) card2).getShield();
+                int damage_rituel_J2 = ((Ritual) card2).getValue();
+                int damage_creature_J1 = ((Creature) card1).getDamage();
+
+                if(!shield_J2)
+                {
+                    if(damage_rituel_J2>0)
+                    {
+                    J1.damage(damage_creature_J1);
+                    J2.damage(damage_rituel_J2);
+                    }
+                    if(damage_rituel_J2<0)
+                    {
+                    J1.damage(damage_creature_J1);
+                    J1.damage(damage_rituel_J2); //soin
+                    }
+                }
             }
 
 
 
+            //3 cas possible pour la victoire ou l'egalite
 
-
-
-
-
-
-
-            /*Implementer une méthode pour comparer les dégats des joueurs
-            if (degats_joueur1==0 || degats_joueur2==0){
-                degats_joueur1=0;
-                degats_joueur2=0;
-            }
-            if (degats_joueur1>degats_joueur2) {
-                J2.damage(degats_joueur1-degats_joueur2); //Inflige des degats a l'adversaire
-                System.out.println(J2.get_name()+" is hurt, "+ J2.get_pv()+" hp left!");
-
-            }
-            if(opponent.est_mort())
+            if(J1.est_mort() && J2.est_en_vie())
             {
                 jeu_fini = true;
-                logger.info(opponent.get_name() + " has " + opponent.get_pv() + " life points, he is dead, congrats.");
+                logger.info(J1.get_name() + " has " + J1.get_pv() + " life points, he is dead, congrats to "+ J2.get_name());
             }
-            */
+            if(J2.est_mort() && J1.est_en_vie())
+            {
+                jeu_fini = true;
+                logger.info(J2.get_name() + " has " + J2.get_pv() + " life points, he is dead, congrats to "+ J1.get_name());
+            }
+            if(J2.est_mort() && J1.est_mort())
+            {
+                jeu_fini = true;
+                if(J1.get_pv()>J2.get_pv())
+                {
+                logger.info(J1.get_name() + " and  " + J2.get_name() + " are deads but"+ J1.get_name() + " got more hp with "+ J1.get_pv()+" against "+ J2.get_pv() +" for "+J2.get_name()+" so "+J1.get_name()+"win !");
+                }
+                else
+                {
+                logger.info(J2.get_name() + " and  " + J1.get_name() + " are deads but"+ J2.get_name() + " got more hp with "+ J2.get_pv()+" against "+ J1.get_pv() +" for "+J1.get_name()+" so "+J2.get_name()+"win !");
+                }
+            }
 
             roundCounter++;
         }
