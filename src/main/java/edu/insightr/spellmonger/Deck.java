@@ -1,8 +1,6 @@
 package edu.insightr.spellmonger;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
-import java.util.ArrayList;
+import java.util.*;
+
 /**
  * Created by Chloé +  Dams on 04/10/2016.
  *
@@ -146,12 +144,13 @@ class Deck {
 
     public void AfficherMain(List<Card> Une_main ) {
 
-
-        HashMap<String, Integer> hashmap = new HashMap();
-        String[] tab = {" Eagle , Wolf , Bear , Curse , Blessing , Shield"};
+        // Initialisation de la Map
+        Map<String, Integer> map = new HashMap<>();
+        String[] tab = {"Eagle" , "Wolf" , "Bear" , "Curse" , "Blessing" , "Shield"};
 
         for (String carte : tab) {
-            hashmap.put(carte, 0);
+
+            map.put(carte,0);
         }
 
 
@@ -160,36 +159,44 @@ class Deck {
             switch (card.getId()) {
 
                 case "Eagle":
-                    hashmap.put("Eagle", hashmap.get("Eagle") + 1);
+                    map.put("Eagle", map.get("Eagle") + 1);
+                    break;
 
                 case "Wolf":
-                    hashmap.put("Wolf", hashmap.get("Wolf") + 1);
+                    map.put("Wolf", map.get("Wolf") + 1);
+                    break;
 
                 case "Bear":
-                    hashmap.put("Bear", hashmap.get("Bear") + 1);
-
+                    map.put("Bear", map.get("Bear") + 1);
+                     break;
                 case "Curse":
-                    hashmap.put("Curse", hashmap.get("Curse") + 1);
+                    map.put("Curse", map.get("Curse") + 1);
+                    break;
 
                 case "Blessing":
-                    hashmap.put("Blessing", hashmap.get("Blessing") + 1);
+                    map.put("Blessing", map.get("Blessing") + 1);
+                    break;
 
                 case "Shield":
-                    hashmap.put("Shield", hashmap.get("Shield") + 1);
+                    map.put("Shield", map.get("Shield") + 1);
+                    break;
 
             }
         }
 
         System.out.print(
-                "This is your hand : " +
-                        "Eagle = " + hashmap.get("Eagle") +
-                        "Wolf = " + hashmap.get("Wolf") +
-                        "Bear = " + hashmap.get("Bear") +
-                        "Curse = " + hashmap.get("Curse") +
-                        "Blessing = " + hashmap.get("Blessing") +
-                        "Shield =  " + hashmap.get("Eagle")
+                "This is your hand : \n " +
+                        "Eagle = " + map.get("Eagle") + "\n"+
+                        "Wolf = " + map.get("Wolf") + "\n"+
+                        "Bear = " + map.get("Bear") +"\n"+
+                        "Curse = " + map.get("Curse") +"\n"+
+                        "Blessing = " + map.get("Blessing")+ "\n"+
+                        "Shield =  " + map.get("Shield")
         );
     }
+
+
+
        public Card PickCard(List<Card> Une_main , int i)
         {
            Card carte_choisit;
