@@ -10,7 +10,7 @@ import java.util.ArrayList;
 class Deck {
 
      private List<Card> l_carte;
-     private List<Card> la_main= new ArrayList<>(20);
+
 
     Deck(){
 
@@ -23,7 +23,7 @@ class Deck {
     {
         List<String> ListPourMelanger = new ArrayList<>();
 
-        int compteur=1;
+        int compteur=0;
         int max_size=0;
 
         ListPourMelanger.add("Eagle");
@@ -119,8 +119,9 @@ class Deck {
 
     //Permet à un joueur de recuperer une main de 20 cartes.
 
-    List<Card> CreationMain() {
+    public List<Card> CreationMain() {
         Card carte_pioche = null;
+        List<Card> la_main= new ArrayList<>(20);
         if (l_carte.size() != 0) {
             for (int i = 0; i < 20; i++)
             {
@@ -143,55 +144,59 @@ class Deck {
 
     // Fonction qui lorsqu'on lui donne une main affiche le contenu de la main du joueur concerné.
 
-    public void AfficherMain(List<Card> Une_main ){
+    public void AfficherMain(List<Card> Une_main ) {
 
 
-        HashMap<String,Integer> hashmap = new HashMap();
-        String[] tab = { " Eagle , Wolf , Bear , Curse , Blessing , Shield"};
+        HashMap<String, Integer> hashmap = new HashMap();
+        String[] tab = {" Eagle , Wolf , Bear , Curse , Blessing , Shield"};
 
-        for (String carte :tab) {
-            hashmap.put(carte,0);
+        for (String carte : tab) {
+            hashmap.put(carte, 0);
         }
 
 
         for (Card card : Une_main) {
 
-            switch (card.getId()){
+            switch (card.getId()) {
 
                 case "Eagle":
-                    hashmap.put("Eagle",hashmap.get("Eagle")+1);
+                    hashmap.put("Eagle", hashmap.get("Eagle") + 1);
 
                 case "Wolf":
-                    hashmap.put("Wolf", hashmap.get("Wolf")+1);
+                    hashmap.put("Wolf", hashmap.get("Wolf") + 1);
 
-                case "Bear" :
-                    hashmap.put("Bear", hashmap.get("Bear")+1);
+                case "Bear":
+                    hashmap.put("Bear", hashmap.get("Bear") + 1);
 
-                case "Curse" :
-                    hashmap.put("Curse", hashmap.get("Curse")+1);
+                case "Curse":
+                    hashmap.put("Curse", hashmap.get("Curse") + 1);
 
-                case "Blessing" :
-                    hashmap.put("Blessing", hashmap.get("Blessing")+1);
+                case "Blessing":
+                    hashmap.put("Blessing", hashmap.get("Blessing") + 1);
 
-                case "Shield" :
-                    hashmap.put("Shield", hashmap.get("Shield")+1);
+                case "Shield":
+                    hashmap.put("Shield", hashmap.get("Shield") + 1);
 
             }
         }
 
         System.out.print(
-                "This is your hand : "+
-                "Eagle = "+hashmap.get("Eagle")+
-                "Wolf = "+hashmap.get("Wolf")+
-                "Bear = "+hashmap.get("Bear")+
-                "Curse = "+hashmap.get("Curse")+
-                "Blessing = "+hashmap.get("Blessing")+
-                 "Shield =  "+hashmap.get("Eagle")
+                "This is your hand : " +
+                        "Eagle = " + hashmap.get("Eagle") +
+                        "Wolf = " + hashmap.get("Wolf") +
+                        "Bear = " + hashmap.get("Bear") +
+                        "Curse = " + hashmap.get("Curse") +
+                        "Blessing = " + hashmap.get("Blessing") +
+                        "Shield =  " + hashmap.get("Eagle")
         );
-
-
+    }
+       public Card PickCard(List<Card> Une_main , int i)
+        {
+           Card carte_choisit;
+           carte_choisit = Une_main.get(i);
+           return carte_choisit;
+        }
     }
 
 
 
-}

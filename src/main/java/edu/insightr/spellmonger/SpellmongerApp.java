@@ -12,7 +12,7 @@ public class SpellmongerApp {
     public static void main(String[] args)
     {
         Deck deck = new Deck(); //Creer un deck de 40 cartes en theorie mais la methode split le deck en 2 BUG
-        Deck deck2 = new Deck();
+
 
         Player alice = new Player("alice", 20);
         Player bob = new Player("bob", 20);
@@ -22,7 +22,7 @@ public class SpellmongerApp {
         players.add(bob);
 
         List<Card> deck_alice = deck.CreationMain();
-        List<Card> deck_bob = deck2.CreationMain();
+        List<Card> deck_bob = deck.CreationMain();
 
         int roundCounter = 0;
 
