@@ -22,7 +22,7 @@ public class SpellmongerApp {
         players.add(bob);
 
         List<Card> deck_alice = deck.CreationMain();
-        deck.AfficherMain(deck_alice);
+
 
         List<Card> deck_bob = deck.CreationMain();
 
