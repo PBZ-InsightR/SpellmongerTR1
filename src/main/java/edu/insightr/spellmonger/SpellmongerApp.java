@@ -11,7 +11,7 @@ public class SpellmongerApp {
 
     public static void main(String[] args)
     {
-        Deck deck = new Deck(); //Creer un deck de 40 cartes en theorie mais la methode split le deck en 2 BUG
+        Deck deck = new Deck();
         int NOMBREDECARTE = 20;
         int roundCounter = 0;
         boolean jeu_fini = false;
