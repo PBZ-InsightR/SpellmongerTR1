@@ -12,58 +12,46 @@ public class SpellmongerApp {
     public static void main(String[] args)
     {
         Deck deck = new Deck(); //Creer un deck de 40 cartes en theorie mais la methode split le deck en 2 BUG
-
-
-        Player alice = new Player("alice", 20);
-        Player bob = new Player("bob", 20);
-
-        List<Player> players = new ArrayList<>(2);
-        players.add(alice);
-        players.add(bob);
-
-        List<Card> deck_alice = deck.CreationMain();
-
-
-        List<Card> deck_bob = deck.CreationMain();
-
+        int NOMBREDECARTE = 20;
         int roundCounter = 0;
-
         boolean jeu_fini = false;
+
+        Player J1 = new Player("alice", NOMBREDECARTE ,deck.CreationMain());
+        Player J2 = new Player("bob", NOMBREDECARTE ,deck.CreationMain());
+
+
+
         while (!jeu_fini) {
-
-
-            Player J1 = alice; //Definit le tour des joueurs
-            Player J2 = bob;
 
             System.out.println();
             System.out.println("Entering round " + roundCounter + "..."); //INFO
 
-            if (roundCounter==20)
+            if (roundCounter==NOMBREDECARTE)
             {
-                if (J1.get_pv()>J2.get_pv())
+                if (J1.getPv()>J2.getPv())
                 {
-                    System.out.println(J1.get_name() +" win because he got more life point and there is no more cards ! ");
+                    System.out.println(J1.getName() +" win because he got more life point and there is no more cards ! ");
                 }
-              if(J2.get_pv()>J1.get_pv())
+              if(J2.getPv()>J1.getPv())
                 {
-                    System.out.println(J2.get_name() +" win because he got more life point and there is no more cards ! ");
+                    System.out.println(J2.getName() +" win because he got more life point and there is no more cards ! ");
                 }
-               if(J2.get_pv()==J1.get_pv())
+               if(J2.getPv()==J1.getPv())
                {
                    System.out.println(" Epic DRAW because same life point and there is no more cards ! ");
                }
                 break;
             }
-            Card card1 = deck_alice.get(roundCounter); //Pas encore d'ia, donc le joueur joue la carte 1 au t1, la carte 2 au t2, etc ..
-            Card card2 = deck_bob.get(roundCounter);
+            Card card1 = J1.getDeckDuJoueur().get(roundCounter); //Pas encore d'ia, donc le joueur joue la carte 1 au t1, la carte 2 au t2, etc ..
+            Card card2 = J2.getDeckDuJoueur().get(roundCounter);
 
             //System.out.println("Main de alice :");
            // deck.AfficherMain(deck_alice); //On affiche les main des joueurs. BUGGER ! A REGLER D'URGENCE POUR LE JAVA FX
             //System.out.println("Main de bob :");
             //deck.AfficherMain(deck_bob); //BUGGER ! A REGLER D'URGENCE POUR LE JAVA FX
 
-            System.out.println(J1.get_name()+" draw a "+ card1.getId()); //INFO
-            System.out.println(J2.get_name()+" draw a "+ card2.getId()); //INFO
+            System.out.println(J1.getName()+" draw a "+ card1.getId()); //INFO
+            System.out.println(J2.getName()+" draw a "+ card2.getId()); //INFO
 
 
 
@@ -80,53 +68,14 @@ public class SpellmongerApp {
 
             if(card1 instanceof Creature && card2 instanceof Creature )
             {
-                int damage_creature_J1 = ((Creature) card1).getDamage();
-                int damage_creature_J2 = ((Creature) card2).getDamage();
-
-               if(damage_creature_J1>damage_creature_J2)
-                    {
-                        J2.damage(damage_creature_J1-damage_creature_J2);
-                    }
-                else
-                    {
-                        J1.damage(damage_creature_J2-damage_creature_J1);
-                    }
+                J2.creaVsCrea(card1,card2);
+                J1.creaVsCrea(card2,card1);
             }
 
            if(card1 instanceof Ritual  &&  card2 instanceof Ritual )
             {
-                boolean shield_J1 = ((Ritual) card1).getShield();
-                boolean shield_J2 = ((Ritual) card2).getShield();
-
-                int damage_rituel_J1 = ((Ritual) card1).getValue();
-                int damage_rituel_J2 = ((Ritual) card2).getValue();
-
-                if(shield_J2 && damage_rituel_J1>0) //Si shield J2 on annule les degat du J1
-                    {
-                        damage_rituel_J1=0;
-                    }
-                if(shield_J1 && damage_rituel_J2>0) //Si shield J1 on annule les degat du J2
-                    {
-                        damage_rituel_J2=0;
-                    }
-
-                if(damage_rituel_J1>=0)//Si curse J1 on inflige a J2
-                    {
-                        J2.damage(damage_rituel_J1);
-                    }
-                else
-                    {
-                        J1.damage(damage_rituel_J1); //Sinon on soigne J1 pour son rituel soin
-                    }
-
-                if(damage_rituel_J2>=0) //Si curse J2 on inflige a J1
-                    {
-                        J1.damage(damage_rituel_J2);
-                    }
-                else                                //Sinon on soigne J1 pour son rituel soin
-                    {
-                        J2.damage(damage_rituel_J2);
-                    }
+               J1.rituVsRitu(card1,card2);
+               J2.rituVsRitu(card2,card1);
 
             }
 
@@ -174,33 +123,33 @@ public class SpellmongerApp {
 
             //3 cas possible pour la victoire ou l'egalite
 
-            if(J1.est_mort() && J2.est_en_vie())
+            if(J1.estMort() && J2.estEnVie())
             {
                 jeu_fini = true;
-                System.out.println(J1.get_name() + " has " + J1.get_pv() + " life points, he is dead, congrats to "+ J2.get_name());
+                System.out.println(J1.getName() + " has " + J1.getPv() + " life points, he is dead, congrats to "+ J2.getName());
             }
-            if(J2.est_mort() && J1.est_en_vie())
+            if(J2.estMort() && J1.estEnVie())
             {
                 jeu_fini = true;
-                System.out.println(J2.get_name() + " has " + J2.get_pv() + " life points, he is dead, congrats to "+ J1.get_name());
+                System.out.println(J2.getName() + " has " + J2.getPv() + " life points, he is dead, congrats to "+ J1.getName());
             }
-            if(J2.est_mort() && J1.est_mort())
+            if(J2.estMort() && J1.estMort())
             {
                 jeu_fini = true;
-                if(J1.get_pv()>J2.get_pv())
+                if(J1.getPv()>J2.getPv())
                 {
-                    System.out.println(J1.get_name() + " and  " + J2.get_name() + " are deads but"+ J1.get_name() + " got more hp with "+ J1.get_pv()+" against "+ J2.get_pv() +" for "+J2.get_name()+" so "+J1.get_name()+"win !");
+                    System.out.println(J1.getName() + " and  " + J2.getName() + " are deads but"+ J1.getName() + " got more hp with "+ J1.getPv()+" against "+ J2.getPv() +" for "+J2.getName()+" so "+J1.getName()+"win !");
                 }
                 else
                 {
-                    System.out.println(J2.get_name() + " and  " + J1.get_name() + " are deads but"+ J2.get_name() + " got more hp with "+ J2.get_pv()+" against "+ J1.get_pv() +" for "+J1.get_name()+" so "+J2.get_name()+"win !");
+                    System.out.println(J2.getName() + " and  " + J1.getName() + " are deads but"+ J2.getName() + " got more hp with "+ J2.getPv()+" against "+ J1.getPv() +" for "+J1.getName()+" so "+J2.getName()+"win !");
                 }
             }
 
 
 
-                System.out.println(J1.get_name() +" got "+J1.get_pv()+" life points");
-                System.out.println(J2.get_name() +" got "+J2.get_pv()+" life points");
+                System.out.println(J1.getName() +" got "+J1.getPv()+" life points");
+                System.out.println(J2.getName() +" got "+J2.getPv()+" life points");
             
 
             roundCounter++;
