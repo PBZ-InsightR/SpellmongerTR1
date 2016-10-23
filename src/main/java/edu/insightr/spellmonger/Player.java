@@ -65,6 +65,33 @@ class Player {
 
     }
 
+    void CreaVsRituJ1(Card card1, Card card2)
+    {
+        boolean shield_J1 = ((Ritual) card1).getShield();
+        int damage_rituel_J1 = ((Ritual) card1).getValue();
+        int damage_creature_J2 = ((Creature) card2).getDamage();
+
+        if (!shield_J1)
+        {
+            damage(damage_creature_J2);
+
+            if (damage_rituel_J1 < 0)
+            {
+                damage(damage_rituel_J1);
+            }
+
+        }
+    }
+
+    void CreaVsRituJ2(Card card1, Card card2)
+    {
+        int damage_rituel_J1 = ((Ritual) card1).getValue();
+        if(damage_rituel_J1>0)
+        {
+            damage(damage_rituel_J1);
+        }
+    }
+
 
     int getPv()
     {
