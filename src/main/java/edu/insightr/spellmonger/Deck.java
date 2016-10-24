@@ -70,9 +70,9 @@ class Deck {
 
     public List<Card> CreationMain() {
         Card carte_pioche = null;
-        List<Card> la_main= new ArrayList<>(20);
+        List<Card> la_main= new ArrayList<>(nombreCarte/2);
         if (deck.size() != 0) {
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < nombreCarte/2; i++)
             {
                 try {
                 carte_pioche = deck.get(0);
