@@ -4,13 +4,13 @@ import java.util.*;
 public class IA
 {
 
-    Card Curse = new Ritual("Curse");
-    Card Shield = new Ritual("Shield");
-    Card Blessing = new Ritual("Blessing");
+    private Card Curse = new Ritual("Curse");
+    private Card Shield = new Ritual("Shield");
+    private Card Blessing = new Ritual("Blessing");
 
-    Card Wolf = new Creature("Wolf");
-    Card Bear = new Creature("Bear");
-    Card Eagle = new Creature("Eagle");
+    private Card Wolf = new Creature("Wolf");
+    private Card Bear = new Creature("Bear");
+    private Card Eagle = new Creature("Eagle");
 
     Card ChooseBestCard(List<Card> liste_de_carte)
     {
@@ -43,8 +43,7 @@ public class IA
             return Blessing;
         }
 
-        Creature end = new Creature("XXX"); // <--- Horrible chose que je viens de faire
-        return end;
+        return new Creature("XXX"); //HORREUR ULTIMEEEE
 
     }
 
