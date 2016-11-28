@@ -42,8 +42,10 @@ public class SpellmongerApp {
                 break;
             }
             //IMPLEMENTER L'IA ICI
-            Card card1 = J1.getDeckDuJoueur().get(roundCounter); //Pas encore d'ia, donc le joueur joue la carte 1 au t1, la carte 2 au t2, etc ..
-            Card card2 = J2.getDeckDuJoueur().get(roundCounter);
+            IA IA_J1= new IA(J1.getDeckDuJoueur());
+            Card card1 = IA_J1.ChooseBestCard();
+            //Card card1 = J1.getDeckDuJoueur().get(roundCounter); //Pas encore d'ia, donc le joueur joue la carte 1 au t1, la carte 2 au t2, etc ..
+            Card card2 = J2.getDeckDuJoueur().get(0);
 /*
             System.out.println("/n Main de alice :");
             deck.AfficherMain(J1.getDeckDuJoueur()); //On affiche les main des joueurs. Mais prend bcp de place dans les logs
@@ -82,6 +84,9 @@ public class SpellmongerApp {
                 J2.CreaVsRituJ1(card2,card1);
                 J1.CreaVsRituJ2(card2,card1);
             }
+
+            J1.getDeckDuJoueur().remove(card1);
+            J2.getDeckDuJoueur().remove(card2);
 
             //Affichage des points de vie des joueurs
             System.out.println(J1.getName() +" got "+J1.getPv()+" life points");

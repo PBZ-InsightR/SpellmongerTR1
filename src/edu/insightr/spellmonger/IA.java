@@ -3,46 +3,54 @@ import java.util.*;
 
 public class IA
 {
+    private List<Card> liste_de_carte;
 
-    private Card Curse = new Ritual("Curse");
-    private Card Shield = new Ritual("Shield");
-    private Card Blessing = new Ritual("Blessing");
+    public IA(List<Card> liste_de_carte)
+    {
+        this.liste_de_carte=liste_de_carte;
+    }
 
-    private Card Wolf = new Creature("Wolf");
-    private Card Bear = new Creature("Bear");
-    private Card Eagle = new Creature("Eagle");
-
-    Card ChooseBestCard(List<Card> liste_de_carte)
+    Card ChooseBestCard()
     {
         if(liste_de_carte.isEmpty())
         {
             System.out.println("Plus de cartes ! ");
         }
-        else if(liste_de_carte.contains(Curse))
-        {
-            return Curse;
+        int taille = liste_de_carte.size();
+
+        for (int i=0; i<taille ; i++) {
+            if (liste_de_carte.get(i).getId().equals("Curse")) {
+                return liste_de_carte.get(i);
+            }
         }
-        else if(liste_de_carte.contains(Bear))
-        {
-            return Bear;
+        for (int i=0; i<taille ; i++) {
+            if (liste_de_carte.get(i).getId().equals("Bear")) {
+                return liste_de_carte.get(i);
+            }
         }
-        else if(liste_de_carte.contains(Wolf))
-        {
-            return Wolf;
+        for (int i=0; i<taille ; i++) {
+            if (liste_de_carte.get(i).getId().equals("Wolf")) {
+                return liste_de_carte.get(i);
+            }
         }
-        else if(liste_de_carte.contains(Eagle))
-        {
-            return Eagle;
+        for (int i=0; i<taille ; i++) {
+            if (liste_de_carte.get(i).getId().equals("Eagle")) {
+                return liste_de_carte.get(i);
+            }
         }
-        else if(liste_de_carte.contains(Shield))
-        {
-            return Shield;
+        for (int i=0; i<taille ; i++) {
+            if (liste_de_carte.get(i).getId().equals("Shield")) {
+                return liste_de_carte.get(i);
+            }
         }
-        else if(liste_de_carte.contains(Blessing))
-        {
-            return Blessing;
+        for (int i=0; i<taille ; i++) {
+            if (liste_de_carte.get(i).getId().equals("Blessing")) {
+                return liste_de_carte.get(i);
+            }
         }
 
+
+        System.out.println("ERREUR !!");
         return new Creature("XXX"); //HORREUR ULTIMEEEE
 
     }
