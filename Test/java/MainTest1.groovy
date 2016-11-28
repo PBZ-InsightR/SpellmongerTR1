@@ -1,9 +1,9 @@
-package edu.insightr.spellmonger.Test.java
+package java
 
 /**
  * Created by Ken on 24/11/2016.
  */
-class MainTest1 extends GroovyTestCase {
+    class MainTest1 extends GroovyTestCase {
     void setUp() {
         super.setUp()
 

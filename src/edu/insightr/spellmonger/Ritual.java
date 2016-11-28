@@ -13,18 +13,21 @@ public class Ritual extends Card {
 
     public Ritual(String id) {
         super(id);
+        final String CurseCard = "Curse";
+        final String ShieldCard = "Shield";
+        final String BlessingCard = "Blessing";
 
         switch(id) {
-            case "Curse":
+            case CurseCard:
                 this.value = 3;
                 break;
 
-            case "Shield":
+            case ShieldCard:
                 this.shield=true;
                 this.value=0;
                 break;
 
-            case "Blessing":
+            case BlessingCard:
                 this.value = -3;
                 break;
 
