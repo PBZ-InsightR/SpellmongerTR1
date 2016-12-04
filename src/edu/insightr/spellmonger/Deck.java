@@ -19,6 +19,11 @@ class Deck {
         deck= CreationDeck();
         Mix();
     }
+    
+    // Une Waste instancié est une défausse de 21 emplacements.
+    Waste(){
+        deck = new ArrayList<>(nombreCarte/2);
+    }
 
  public  List<Card> CreationDeck() {
 
