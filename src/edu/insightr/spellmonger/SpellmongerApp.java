@@ -6,10 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
 public class SpellmongerApp {
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		Deck deck = new Deck();
 		Waste wasteJ1 = new Waste();
 		Waste wasteJ2 = new Waste();
@@ -71,23 +69,19 @@ public class SpellmongerApp {
 			*                            Crea vs Rituel.
 			* On gere tout les cas possibles.*/
 			
-			if(card1 instanceof Creature && card2 instanceof Creature )
-			{
+			if(card1 instanceof Creature && card2 instanceof Creature ) {
 				J2.creaVsCrea(card1,card2);
 				J1.creaVsCrea(card2,card1);
 			}
-			if(card1 instanceof Ritual  &&  card2 instanceof Ritual )
-			{
+			if(card1 instanceof Ritual  &&  card2 instanceof Ritual ) {
 				J1.rituVsRitu(card1,card2);
 				J2.rituVsRitu(card2,card1);
 			}
-			if(card1 instanceof Ritual  &&  card2 instanceof Creature )
-			{
+			if(card1 instanceof Ritual  &&  card2 instanceof Creature ) {
 				J1.CreaVsRituJ1(card1,card2);
 				J2.CreaVsRituJ2(card1,card2);
 			}
-			if(card2 instanceof Ritual  &&  card1 instanceof Creature )
-			{
+			if(card2 instanceof Ritual  &&  card1 instanceof Creature ) {
 				J2.CreaVsRituJ1(card2,card1);
 				J1.CreaVsRituJ2(card2,card1);
 			}
@@ -107,25 +101,19 @@ public class SpellmongerApp {
 			System.out.println(J2.getName() +" got "+J2.getPv()+" life points");
 			
 			//3 cas possible pour la victoire ou l'egalite
-			if(J1.estMort() && J2.estEnVie())
-			{
+			if(J1.estMort() && J2.estEnVie()) {
 				jeu_fini = true;
 				System.out.println(J1.getName() + " has " + J1.getPv() + " life points, he is dead, congrats to "+ J2.getName());
 			}
-			if(J2.estMort() && J1.estEnVie())
-			{
+			if(J2.estMort() && J1.estEnVie()) {
 				jeu_fini = true;
 				System.out.println(J2.getName() + " has " + J2.getPv() + " life points, he is dead, congrats to "+ J1.getName());
 			}
-			if(J2.estMort() && J1.estMort())
-			{
+			if(J2.estMort() && J1.estMort()) {
 				jeu_fini = true;
-				if(J1.getPv()>J2.getPv())
-				{
+				if(J1.getPv()>J2.getPv()) {
 					System.out.println(J1.getName() + " and  " + J2.getName() + " are deads but "+ J1.getName() + " got more hp with "+ J1.getPv()+" against "+ J2.getPv() +" for "+J2.getName()+" so "+J1.getName()+" win !");
-				}
-				else
-				{
+				} else {
 					System.out.println(J2.getName() + " and  " + J1.getName() + " are deads but "+ J2.getName() + " got more hp with "+ J2.getPv()+" against "+ J1.getPv() +" for "+J1.getName()+" so "+J2.getName()+" win !");
 				}
 			}
