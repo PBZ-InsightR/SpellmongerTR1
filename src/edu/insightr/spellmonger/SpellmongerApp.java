@@ -12,56 +12,56 @@ public class SpellmongerApp {
     public static void main(String[] args)
     {
         Deck deck = new Deck();
-        final int NOMBREDECARTE = 20;
+        final int NOMBREDECARTE = 21;       // 21 % 3 = 0 
         final int LIFEPOINT = 20;
-        int roundCounter = 0;
+        // int roundCounter = 0;            // pas besoin de roundcounter si défausse
         boolean jeu_fini = false;
 
-        Player J1 = new Player("alice", LIFEPOINT ,deck.CreationMain());
+		Player J1 = new Player("alice", LIFEPOINT ,deck.CreationMain());
         Player J2 = new Player("bob", LIFEPOINT ,deck.CreationMain());
 
         do  {
 
             System.out.println();
-            System.out.println("Entering round " + roundCounter + "..."); //INFO
-
-            if (roundCounter==NOMBREDECARTE)
-            {
-                if (J1.getPv()>J2.getPv())
-                {
-                    System.out.println(J1.getName() +" win because he got more life point and there is no more cards ! ");
-                }
-              if(J2.getPv()>J1.getPv())
-                {
-                    System.out.println(J2.getName() +" win because he got more life point and there is no more cards ! ");
-                }
-               if(J2.getPv()==J1.getPv())
-               {
-                   System.out.println(" Epic DRAW because same life point and there is no more cards ! ");
-               }
-                break;
-            }
+           /* System.out.println("Entering round " + roundCounter + "..."); //INFO
+            *
+            * if (roundCounter==NOMBREDECARTE)
+            * {
+            *     if (J1.getPv()>J2.getPv())
+            *     {
+            *         System.out.println(J1.getName() +" win because he got more life point and there is no more cards ! ");
+            *     }
+            *   if(J2.getPv()>J1.getPv())
+            *     {
+            *         System.out.println(J2.getName() +" win because he got more life point and there is no more cards ! ");
+            *     }
+            *    if(J2.getPv()==J1.getPv())
+            *    {
+            *        System.out.println(" Epic DRAW because same life point and there is no more cards ! ");
+            *    }
+            *     break;
+            * }*/
+            
             //IMPLEMENTER L'IA ICI
             IA IA_J1= new IA(J1.getDeckDuJoueur());
             Card card1 = IA_J1.ChooseBestCard();
             //Card card1 = J1.getDeckDuJoueur().get(roundCounter); //Pas encore d'ia, donc le joueur joue la carte 1 au t1, la carte 2 au t2, etc ..
             Card card2 = J2.getDeckDuJoueur().get(0);
-/*
-            System.out.println("/n Main de alice :");
-            deck.AfficherMain(J1.getDeckDuJoueur()); //On affiche les main des joueurs. Mais prend bcp de place dans les logs
-            System.out.println("/n Main de bob :");
-            deck.AfficherMain(J2.getDeckDuJoueur());
-*/
+
+           /* System.out.println("/n Main de alice :");
+            * deck.AfficherMain(J1.getDeckDuJoueur()); //On affiche les main des joueurs. Mais prend bcp de place dans les logs
+            * System.out.println("/n Main de bob :");
+            * deck.AfficherMain(J2.getDeckDuJoueur());*/
+            
             System.out.println(J1.getName()+" draw a "+ card1.getId()); //INFO
             System.out.println(J2.getName()+" draw a "+ card2.getId()); //INFO
-              /*
-             4 cas  sont possible ici ! Rituel vs Rituel,
-                                          Crea vs Crea,
-                                          Rituel vs Crea
-                                          Crea vs Rituel.
-               On gere tout les cas possibles.
-
-              */
+           
+           /* 4 cas  sont possible ici ! Rituel vs Rituel,
+            *                            Crea vs Crea,
+            *                            Rituel vs Crea
+            *                            Crea vs Rituel.
+            * On gere tout les cas possibles.*/
+            
             if(card1 instanceof Creature && card2 instanceof Creature )
             {
                 J2.creaVsCrea(card1,card2);
