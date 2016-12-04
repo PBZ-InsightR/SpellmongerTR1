@@ -13,9 +13,9 @@ public class SpellmongerApp {
 		Deck deck = new Deck();
 		Waste wasteJ1 = new Waste();
 		Waste wasteJ2 = new Waste();
-		final int NOMBREDECARTE = 21;       // 21 % 3 = 0 
+		// final int NOMBREDECARTE = 21;       // 21 % 3 = 0 
 		final int LIFEPOINT = 20;
-		// int roundCounter = 0;            // pas besoin de roundcounter si défausse
+		int roundCounter = 0;
 		boolean jeu_fini = false;
 		
 		Player J1 = new Player("alice", LIFEPOINT ,deck.CreationMain());
@@ -44,11 +44,10 @@ public class SpellmongerApp {
 		
 // ===> début choix cartes		
 
-/* --> pioche = 3
- * --> sélection du J2 (J1 et J2 doivent avoir choisi)
- * --> 3/2/1 vont à la défausse
- * --> quand tapis = 0, piocher 3 nouvelles cartes
- * --> quand pioche = 0, mélanger défausse et défausse = n*/
+			// --> pioche = 3
+			// --> sélection du J2 (J1 et J2 doivent avoir choisi)			
+			// --> quand tapis = 0, piocher 3 nouvelles cartes
+			// --> quand pioche = 0, mélanger défausse et défausse = n
 		
 // <=== fin choix cartes
 			
@@ -93,8 +92,15 @@ public class SpellmongerApp {
 				J1.CreaVsRituJ2(card2,card1);
 			}
 			
+// ===> Début défausse
+
+			// --> 3/2/1 vont à la défausse
+			wasteJ1[roundCounter] = card1.getId();	// ou wasteJ1.add(card1);
 			J1.getDeckDuJoueur().remove(card1);
+			wasteJ2[roundCounter] = card2.getId();	// ou wasteJ2.add(card2);
 			J2.getDeckDuJoueur().remove(card2);
+			
+// <=== Fin défausse
 			
 			//Affichage des points de vie des joueurs
 			System.out.println(J1.getName() +" got "+J1.getPv()+" life points");
