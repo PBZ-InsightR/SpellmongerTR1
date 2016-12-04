@@ -10,9 +10,9 @@ import static java.util.Collections.shuffle;
 class Deck {
 
      private List<Card> deck;
-     private  int nombreCarte=40;
+     private  int nombreCarte=42;  // permet que chacun des joueurs est 21 cartes
 
-    // Un Deck instancié est un deck constitué de 40 cartes et melangé .
+    // Un Deck instancié est un deck constitué de 42 cartes et melangé .
     Deck(){
 
         deck = new ArrayList<>(nombreCarte);
