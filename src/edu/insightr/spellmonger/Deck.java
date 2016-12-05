@@ -8,9 +8,10 @@ import static java.util.Collections.shuffle;
 class Deck {
 	private List<Card> deck;
 	private  int nombreCarte=42;  // permet que chacun des joueurs est 21 cartes
+	private  int nbCarteMain = 3;
 	
 	// Un Deck instancié est un deck constitué de 42 cartes et melangé.
-	Deck(){
+	Deck() {
 		deck = new ArrayList<>(nombreCarte);
 		deck= CreationDeck();
 		shuffle(deck);
@@ -52,12 +53,12 @@ class Deck {
 		return  deck;
 	}
 
-	//Permet à un joueur de recuperer une main de 20 cartes.
+	//Permet à un joueur de recuperer une main de 3 cartes.
 	public List<Card> CreationMain() {
 		Card carte_pioche = null;
-		List<Card> la_main= new ArrayList<>(nombreCarte/2);
+		List<Card> la_main= new ArrayList<>(nbCarteMain);
 		if (deck.size() != 0) {
-			for (int i = 0; i < nombreCarte/2; i++) {
+			for (int i = 0; i < nbCarteMain; i++) {
 				try {
 					carte_pioche = deck.get(0);
 					deck.remove(0);
@@ -67,7 +68,8 @@ class Deck {
 			}
         } else {
 			System.out.println("Deck vide, mélange de la défausse");
-			shuffle(waste);
+			shuffle(waste);		// mélange de la défausse
+			deck = waste;		// la défausse devient le deck
 			la_main=null;
 		}
 		return la_main;
