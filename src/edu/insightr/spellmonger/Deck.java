@@ -10,7 +10,7 @@ import static java.util.Collections.shuffle;
 class Deck {
 
      private List<Card> deck;
-     private  int nombreCarte=40;
+     private  int nombreCarte=42;
 
     // Un Deck instancié est un deck constitué de 40 cartes et melangé .
     Deck(){
@@ -41,13 +41,13 @@ class Deck {
          deck.add(card);
      }
 
-     for (i = 0; i < nombreCarte/20; i++) {
+     for (i = 0; i < nombreCarte/21; i++) {
          card = new Ritual("Curse");
          deck.add(card);
 
      }
 
-     for (i = 0; i < (nombreCarte/13); i++) {
+     for (i = 0; i < (nombreCarte/14); i++) {
          card = new Ritual("Blessing");
          deck.add(card);
 
@@ -66,34 +66,63 @@ class Deck {
  }
 
 
-    //Permet à un joueur de recuperer une main de 20 cartes.
+    //Permet à un joueur de recuperer une main de 21 cartes.
 
-    public List<Card> CreationMain() {
-        Card carte_pioche = null;
-        List<Card> la_main= new ArrayList<>(nombreCarte/2);
+    public List<Card> DistributionCarte() {
+        Card cartePioche = null;
+        List<Card> deckJoueur= new ArrayList<>(nombreCarte/2);
         if (deck.size() != 0) {
             for (int i = 0; i < nombreCarte/2; i++)
             {
                 try {
-                carte_pioche = deck.get(0);
+                cartePioche = deck.get(0);
                 deck.remove(0);
                 }
                 catch (IndexOutOfBoundsException e){}
-                la_main.add(carte_pioche);
+                deckJoueur.add(cartePioche);
             }
 
         } else {
             System.out.println("Deck vide");
-            la_main=null;
+            deckJoueur=null;
         }
-        return la_main;
+        return deckJoueur;
 
 
     }
 
+    public List<Card> CreationMain(List<Card>deckJoueur){
+
+        Card cartePiocheDeckJoueur=null;
+        List<Card>mainActuelle= new ArrayList<>(3);
+
+        if ( mainActuelle.size()==0)
+            for (int i =0; i<3; i++) {
+                try {
+                    cartePiocheDeckJoueur=deckJoueur.get(0);
+                    deckJoueur.remove(0);
+                    mainActuelle.add(cartePiocheDeckJoueur);
+                }
+                catch (IndexOutOfBoundsException e){
+            }
+
+        }
+        else {
+            System.out.println("Main actuelle non vide");
+
+        }
+
+        return mainActuelle;
+    }
+
+
+
+
+
+
     // Fonction qui lorsqu'on lui donne une main affiche le contenu de la main du joueur concerné.
 
-    public void AfficherMain(List<Card> Une_main ) {
+   public void AfficherMain(List<Card> Une_main ) {
 
         // Initialisation de la Map
         Map<String, Integer> map = new HashMap<>();

@@ -1,11 +1,5 @@
 package edu.insightr.spellmonger;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
 
 public class SpellmongerApp {
 
@@ -17,8 +11,8 @@ public class SpellmongerApp {
         int roundCounter = 0;
         boolean jeu_fini = false;
 
-        Player J1 = new Player("alice", LIFEPOINT ,deck.CreationMain());
-        Player J2 = new Player("bob", LIFEPOINT ,deck.CreationMain());
+        Player J1 = new Player("alice", LIFEPOINT ,deck.DistributionCarte());
+        Player J2 = new Player("bob", LIFEPOINT ,deck.DistributionCarte());
 
         do  {
 
