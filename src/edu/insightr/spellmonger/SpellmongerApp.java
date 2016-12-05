@@ -23,32 +23,6 @@ public class SpellmongerApp {
 			System.out.println();
 			System.out.println("Entering round " + roundCounter + "..."); //INFO
 			
-			/*if (roundCounter==NOMBREDECARTE)
-			*{
-			*	if (J1.getPv()>J2.getPv())
-			*	{
-			*		System.out.println(J1.getName() +" win because he got more life point and there is no more cards ! ");
-			*	}
-			*	if(J2.getPv()>J1.getPv())
-			*	{
-			*		System.out.println(J2.getName() +" win because he got more life point and there is no more cards ! ");
-			*	}
-			*	if(J2.getPv()==J1.getPv())
-			*	{
-			*		System.out.println(" Epic DRAW because same life point and there is no more cards ! ");
-			*	}
-			*	break;
-			*}*/
-		
-// ===> début choix cartes		
-
-			// --> pioche = 3
-			// --> sélection du J2 (J1 et J2 doivent avoir choisi)			
-			// --> quand tapis = 0, piocher 3 nouvelles cartes
-			// --> quand pioche = 0, mélanger défausse et défausse = n
-		
-// <=== fin choix cartes
-			
 			//IMPLEMENTER L'IA ICI
 			IA IA_J1= new IA(J1.getDeckDuJoueur());
 			Card card1 = IA_J1.ChooseBestCard();
@@ -86,15 +60,11 @@ public class SpellmongerApp {
 				J1.CreaVsRituJ2(card2,card1);
 			}
 			
-// ===> Début défausse
-
-			// --> 3/2/1 vont à la défausse
+			// Defausse
 			wasteJ1[roundCounter] = card1.getId();	// ou wasteJ1.add(card1);
 			J1.getDeckDuJoueur().remove(card1);
 			wasteJ2[roundCounter] = card2.getId();	// ou wasteJ2.add(card2);
 			J2.getDeckDuJoueur().remove(card2);
-			
-// <=== Fin défausse
 			
 			//Affichage des points de vie des joueurs
 			System.out.println(J1.getName() +" got "+J1.getPv()+" life points");
