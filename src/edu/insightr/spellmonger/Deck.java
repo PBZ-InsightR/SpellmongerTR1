@@ -181,6 +181,7 @@ class Deck {
         {
            Card carte_choisit;
            carte_choisit = Une_main.get(i);
+           Une_main.remove(i);
            return carte_choisit;
         }
 
