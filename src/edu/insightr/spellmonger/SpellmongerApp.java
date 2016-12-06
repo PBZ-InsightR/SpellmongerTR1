@@ -9,9 +9,6 @@ import javafx.stage.Stage;
 public class SpellmongerApp {
 	public static void main(String[] args) {
 		Deck deck = new Deck();
-		Waste wasteJ1 = new Waste();
-		Waste wasteJ2 = new Waste();
-		// final int NOMBREDECARTE = 21;       // 21 % 3 = 0 
 		final int LIFEPOINT = 20;
 		int roundCounter = 0;
 		boolean jeu_fini = false;
@@ -61,9 +58,7 @@ public class SpellmongerApp {
 			}
 			
 			// Defausse
-			wasteJ1[roundCounter] = card1.getId();	// ou wasteJ1.add(card1);
 			J1.getDeckDuJoueur().remove(card1);
-			wasteJ2[roundCounter] = card2.getId();	// ou wasteJ2.add(card2);
 			J2.getDeckDuJoueur().remove(card2);
 			
 			//Affichage des points de vie des joueurs
