@@ -58,8 +58,16 @@ public class SpellmongerApp {
 			}
 			
 			// Defausse
-			J1.getDeckDuJoueur().remove(card1);
-			J2.getDeckDuJoueur().remove(card2);
+			if (roundCounter % NOMBREDECARTE == 0) {
+				J1.getDeckDuJoueur().remove(card1);
+				J2.getDeckDuJoueur().remove(card2);
+			} else {
+				J1.getDeckDuJoueur().remove(card1);
+				J2.getDeckDuJoueur().remove(card2);
+				
+				J1 = new Player(J1.getName(), J1.getPv(), deck.Defausse(J1.getDeckDuJoueur()));
+				J2 = new Player(J2.getName(), J2.getPv(), deck.Defausse(J1.getDeckDuJoueur()));
+			}
 			
 			//Affichage des points de vie des joueurs
 			System.out.println(J1.getName() +" got "+J1.getPv()+" life points");
