@@ -12,7 +12,7 @@ class Deck {
 	// Un Deck instancié est un deck constitué de 42 cartes et melangé.
 	Deck() {
 		deck = new ArrayList<>(nombreCarte);
-		deck= CreationDeck();
+		deck = CreationDeck();
 		shuffle(deck);
 	}
 
@@ -53,7 +53,7 @@ class Deck {
 		List<Card> deckJoueur = new ArrayList<>(nombreCarte/2);
 		
 		if (deck.size() != 0) {
-			for (int i = 0; i < nbCarteMain; i++) {
+			for (int i = 0; i < nombreCarte/2; i++) {
 				try {
 					cartePioche = deck.get(0);
 					deck.remove(0);
@@ -68,7 +68,19 @@ class Deck {
 		return deckJoueur;
 	}
 	
+	// Mélange défausse
 	public List<Card> Defausse(List<Card> deckJoueur){
+		List<Card> defausseJoueur = deckJoueur;
+		
+		if (deck.size() != 0) {
+			// System.out.println("Deck non vide");
+		} else {
+			try {
+				shuffle(defausseJoueur);
+			}
+			catch (IndexOutOfBoundsException e){}
+		}
+		return defausseJoueur;
 	}
 
 	// Distribue à chaque joueur une main de 3 cartes.
