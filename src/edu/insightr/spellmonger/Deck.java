@@ -28,7 +28,7 @@ class Deck {
      for (i = 0; i < nombreCarte/4; i++) {
 
          card = new Creature("Eagle");
-         deck.add(card);
+         deck.add(card) ;
      }
      for (i = 0; i < nombreCarte/4; i++) {
 
