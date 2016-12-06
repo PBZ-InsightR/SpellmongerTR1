@@ -1,6 +1,6 @@
 package edu.insightr.spellmonger;
-import java.util.*;
 
+import java.util.*;
 import static java.util.Collections.shuffle;
 
 /**	Created by Chloé +  Dams on 04/10/2016.	**/
@@ -8,18 +8,12 @@ import static java.util.Collections.shuffle;
 class Deck {
 	private List<Card> deck;
 	private  int nombreCarte=42;  // permet que chacun des joueurs est 21 cartes
-	private  int nbCarteMain = 3;
 	
 	// Un Deck instancié est un deck constitué de 42 cartes et melangé.
 	Deck() {
 		deck = new ArrayList<>(nombreCarte);
 		deck= CreationDeck();
 		shuffle(deck);
-	}
-	
-	// Une Waste instancié est une défausse de 21 emplacements.
-	Waste(){
-		deck = new ArrayList<>(nombreCarte/2);
 	}
 
 	public  List<Card> CreationDeck() {
@@ -38,11 +32,11 @@ class Deck {
 			card = new Creature("Bear");
 			deck.add(card);
 		}
-		for (i = 0; i < nombreCarte/20; i++) {
+		for (i = 0; i < nombreCarte/21; i++) {
 			card = new Ritual("Curse");
 			deck.add(card);
 		}
-		for (i = 0; i < (nombreCarte/13); i++) {
+		for (i = 0; i < (nombreCarte/14); i++) {
 			card = new Ritual("Blessing");
 			deck.add(card);
 		}
@@ -53,26 +47,48 @@ class Deck {
 		return  deck;
 	}
 
-	//Permet à un joueur de recuperer une main de 3 cartes.
-	public List<Card> CreationMain() {
-		Card carte_pioche = null;
-		List<Card> la_main= new ArrayList<>(nbCarteMain);
+	// Distribue à chaque joueur une deck de 21 cartes.
+	public List<Card> DistributionCarte() {
+		Card cartePioche = null;
+		List<Card> deckJoueur = new ArrayList<>(nombreCarte/2);
+		
 		if (deck.size() != 0) {
 			for (int i = 0; i < nbCarteMain; i++) {
 				try {
-					carte_pioche = deck.get(0);
+					cartePioche = deck.get(0);
 					deck.remove(0);
 				}
 				catch (IndexOutOfBoundsException e){}
-				la_main.add(carte_pioche);
+				deckJoueur.add(cartePioche);
 			}
-        } else {
-			System.out.println("Deck vide, mélange de la défausse");
-			shuffle(waste);		// mélange de la défausse
-			deck = waste;		// la défausse devient le deck
-			la_main=null;
+		} else {
+			System.out.println("Deck vide");
+			deckJoueur = null;
 		}
-		return la_main;
+		return deckJoueur;
+	}
+	
+	public List<Card> Defausse(List<Card> deckJoueur){
+	}
+
+	// Distribue à chaque joueur une main de 3 cartes.
+	public List<Card> CreationMain(List<Card> deckJoueur){
+		Card cartePiocheDeckJoueur = null;
+		List<Card> mainActuelle = new ArrayList<>(3);
+
+		if ( mainActuelle.size() == 0)
+			for (int i =0; i < 3; i++) {
+				try {
+					cartePiocheDeckJoueur = deckJoueur.get(0);
+					deckJoueur.remove(0);
+					mainActuelle.add(cartePiocheDeckJoueur);
+				}
+				catch (IndexOutOfBoundsException e){
+			}
+		} else {
+			System.out.println("Main actuelle non vide");
+		}
+		return mainActuelle;
 	}
 
 	// Fonction qui lorsqu'on lui donne une main affiche le contenu de la main du joueur concerné.
@@ -124,6 +140,7 @@ class Deck {
 	
 	public Card PickCard(List<Card> Une_main , int i) {
 		Card carte_choisit;
+		Une_main.remove(i);
 		carte_choisit = Une_main.get(i);
 		return carte_choisit;
 	}
