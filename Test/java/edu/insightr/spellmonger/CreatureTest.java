@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
  */
 public class CreatureTest {
     @Test
-    public void getDamage() throws Exception {
+    public void getDamage() throws Exception { 
 
     }
 
