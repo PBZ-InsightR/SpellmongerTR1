@@ -12,7 +12,7 @@ class Deck {
      private List<Card> deck;
      private  int nombreCarte=42;
 
-    // Un Deck instancié est un deck constitué de 40 cartes et melangé .
+    // Un  Deck instancié est un deck constitué de 42 cartes et melangé .
     Deck(){
 
         deck = new ArrayList<>(nombreCarte);
