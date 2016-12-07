@@ -19,7 +19,7 @@ class Deck {
 	public  List<Card> CreationDeck() {
 		Card card;
 		int i;
-		
+
 		for (i = 0; i < nombreCarte/4; i++) {
 			card = new Creature("Eagle");
 			deck.add(card);
@@ -66,21 +66,6 @@ class Deck {
 			deckJoueur = null;
 		}
 		return deckJoueur;
-	}
-	
-	// Mélange défausse
-	public List<Card> Defausse(List<Card> deckJoueur){
-		List<Card> defausseJoueur = deckJoueur;
-		
-		if (deck.size() != 0) {
-			// System.out.println("Deck non vide");
-		} else {
-			try {
-				shuffle(defausseJoueur);
-			}
-			catch (IndexOutOfBoundsException e){}
-		}
-		return defausseJoueur;
 	}
 
 	// Distribue à chaque joueur une main de 3 cartes.

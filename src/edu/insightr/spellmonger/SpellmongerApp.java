@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.util.*;
+
 
 public class SpellmongerApp {
 	public static void main(String[] args) {
@@ -12,20 +14,35 @@ public class SpellmongerApp {
 		final int LIFEPOINT = 20;
 		int roundCounter = 0;
 		boolean jeu_fini = false;
-		
-		Player J1 = new Player("alice", LIFEPOINT ,deck.DistributionCarte());
-		Player J2 = new Player("bob", LIFEPOINT ,deck.DistributionCarte());
+		int NOMBREDECARTEMAIN=3;
+		List<Card> deckJ1 = deck.DistributionCarte(); //Creation du Deck J1
+		List<Card> deckJ2 = deck.DistributionCarte(); //Creation du Deck J2
+
+
+		Deck defausse = new Deck();
+		List<Card> defausseJ1=defausse.CreationDeck();
+		List<Card> defausseJ2=defausse.CreationDeck();
+
+		List<Card> mainJ1 = deck.CreationMain(deckJ1); //Main de départ J1
+		List<Card> mainJ2 = deck.CreationMain(deckJ2); //Main de depart J2
+
+		Player J1 = new Player("alice", LIFEPOINT ,deckJ1, mainJ1 ); //Creation des joueurs
+		Player J2 = new Player("bob", LIFEPOINT ,deckJ2, mainJ2);
+
+
 		
 		do {
 			System.out.println();
-			System.out.println("Entering round " + roundCounter + "..."); //INFO
-			
-			//IMPLEMENTER L'IA ICI
-			IA IA_J1= new IA(J1.getDeckDuJoueur());
+			System.out.println("Entering round " + roundCounter + "..."); //INFO ROUND
+
+			//L'ia prend le controle de la main du J1
+			IA IA_J1= new IA(J1.GetMainDuJoueur());
+			//Methode pour choisir la meilleur carte parmis les 3
 			Card card1 = IA_J1.ChooseBestCard();
 			//Card card1 = J1.getDeckDuJoueur().get(roundCounter); //Pas encore d'ia, donc le joueur joue la carte 1 au t1, la carte 2 au t2, etc ..
-			Card card2 = J2.getDeckDuJoueur().get(0);
-			
+
+			Card card2 = J2.GetMainDuJoueur().get(0); //Le joueur prend la première carte de sa main
+
 			/* System.out.println("/n Main de alice :");
 			* deck.AfficherMain(J1.getDeckDuJoueur()); //On affiche les main des joueurs. Mais prend bcp de place dans les logs
 			* System.out.println("/n Main de bob :");
@@ -56,19 +73,33 @@ public class SpellmongerApp {
 				J2.CreaVsRituJ1(card2,card1);
 				J1.CreaVsRituJ2(card2,card1);
 			}
-			
-			// Defausse
-			if (roundCounter % NOMBREDECARTE == 0) {
-				J1.getDeckDuJoueur().remove(card1);
-				J2.getDeckDuJoueur().remove(card2);
-			} else {
-				J1.getDeckDuJoueur().remove(card1);
-				J2.getDeckDuJoueur().remove(card2);
-				
-				J1 = new Player(J1.getName(), J1.getPv(), deck.Defausse(J1.getDeckDuJoueur()));
-				J2 = new Player(J2.getName(), J2.getPv(), deck.Defausse(J1.getDeckDuJoueur()));
+
+
+			// Defausse (de la main)
+			defausseJ1.add(card1);
+			defausseJ2.add(card2);
+
+			J1.GetMainDuJoueur().remove(card1);
+			J2.GetMainDuJoueur().remove(card2);
+
+			NOMBREDECARTEMAIN--;
+
+			if (J1.getDeckDuJoueur().size()==0)
+			{
+				deckJ1=defausseJ1;
+				deckJ2=defausseJ2;
+				J1.SetDeckDuJoueur(deckJ1);
+				J2.SetDeckDuJoueur(deckJ2);
 			}
-			
+
+			if (J1.GetMainDuJoueur().size()==0)
+			{
+				System.out.println(J1.getName() +" and "+ J2.getName()  +" draw 3 cards !");
+				J1.SetMainDuJoueur(deck.CreationMain(deckJ1));
+				J2.SetMainDuJoueur(deck.CreationMain(deckJ2));
+				NOMBREDECARTEMAIN=3;
+			}
+
 			//Affichage des points de vie des joueurs
 			System.out.println(J1.getName() +" got "+J1.getPv()+" life points");
 			System.out.println(J2.getName() +" got "+J2.getPv()+" life points");
