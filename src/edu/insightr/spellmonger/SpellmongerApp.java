@@ -42,11 +42,16 @@ public class SpellmongerApp {
             Card card1 = IA_J1.ChooseBestCard();
             //Card card1 = J1.getDeckDuJoueur().get(roundCounter); //Pas encore d'ia, donc le joueur joue la carte 1 au t1, la carte 2 au t2, etc ..
 
-            Card card2 = J2.GetMainDuJoueur().get(0); //Le joueur prend la première carte de sa main
+            Scanner sc = new Scanner(System.in);
 
-			/* System.out.println("/n Main de alice :");
+            deck.AfficherMain(J2.GetMainDuJoueur());
+            String str = sc.nextLine();
+            int choix = Integer.parseInt(str);
+            Card card2 = J2.GetMainDuJoueur().get(choix-1); //Le joueur prend la première carte de sa main
+
+			/* System.out.println("/n deck de alice :");
 			* deck.AfficherMain(J1.getDeckDuJoueur()); //On affiche les main des joueurs. Mais prend bcp de place dans les logs
-			* System.out.println("/n Main de bob :");
+			* System.out.println("/n deck de bob :");
 			* deck.AfficherMain(J2.getDeckDuJoueur());*/
 
             System.out.println(J1.getName()+" draw a "+ card1.getId()); //INFO

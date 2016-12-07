@@ -89,7 +89,7 @@ class Deck {
     }
 
     // Fonction qui lorsqu'on lui donne une main affiche le contenu de la main du joueur concerné.
-    public void AfficherMain(List<Card> Une_main ) {
+    public void AfficherDeck(List<Card> Une_main ) {
         // Initialisation de la Map
         Map<String, Integer> map = new HashMap<>();
         String[] tab = {"Eagle" , "Wolf" , "Bear" , "Curse" , "Blessing" , "Shield"};
@@ -125,7 +125,7 @@ class Deck {
             }
         }
 
-        System.out.print("This is your hand : \n " +
+        System.out.print("This is your deck : \n " +
                 "Eagle = " + map.get("Eagle") + "\n" +
                 "Wolf = " + map.get("Wolf") + "\n" +
                 "Bear = " + map.get("Bear") +"\n" +
@@ -133,6 +133,16 @@ class Deck {
                 "Blessing = " + map.get("Blessing")+ "\n" +
                 "Shield =  " + map.get("Shield")
         );
+    }
+
+    public void AfficherMain(List<Card> Une_main )
+    {
+        System.out.println("Veuillez saisir une carte parmis : \n");
+        int a=Une_main.size();
+        for(int i=1; i<(a+1) ;i++)
+        {
+            System.out.print( i +" : "+ Une_main.get(i-1)+"\n");
+        }
     }
 
     public Card PickCard(List<Card> Une_main , int i) {
