@@ -6,6 +6,7 @@ import edu.insightr.spellmonger.Creature
 /**
  * Created by Dam's on 30/11/2016.
  */
+/*
 class DeckTest extends GroovyTestCase {
     void setUp() {
         super.setUp()
@@ -44,3 +45,4 @@ class DeckTest extends GroovyTestCase {
 
     }
 }
+*/
