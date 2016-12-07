@@ -11,6 +11,7 @@ import java.util.*;
 public class SpellmongerApp {
 	public static void main(String[] args) {
 		Deck deck = new Deck();
+		final int NOMBREDECARTE = 21;
 		final int LIFEPOINT = 20;
 		int roundCounter = 0;
 		boolean jeu_fini = false;
