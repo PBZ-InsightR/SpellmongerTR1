@@ -48,7 +48,7 @@ class Deck {
         return  deck;
     }
 
-    // Distribue à chaque joueur un deck de 21 cartes.
+    // Distribue à chaque joueur un  deck de 21 cartes.
     public List<Card> DistributionCarte() {
         Card cartePioche = null;
         List<Card> deckJoueur = new ArrayList<>(nombreCarte/2);

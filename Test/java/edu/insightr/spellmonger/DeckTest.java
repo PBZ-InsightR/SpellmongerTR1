@@ -34,6 +34,7 @@ public class DeckTest {
         final String blessingCard = "Blessing";
 
         assertEquals("number of card",cardNumber,deckplayer1.GetDeck().size());
+
         for ( Card card : deckplayer1.GetDeck())
         {
             switch (card.getId())
@@ -96,10 +97,6 @@ public class DeckTest {
 
         assertSame("shuffle works ? ", true, bool);
     }
-
-
-
-
 
 
 }
