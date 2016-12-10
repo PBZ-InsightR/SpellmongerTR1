@@ -38,6 +38,11 @@ public class Ritual extends Card {
 
     }
 
+    @Override
+    public String toString(){       //Access for main, use this as an information message
+        return "Rituel is a " + getId();
+    }
+
     int getValue() {
         return this.value;
     }
