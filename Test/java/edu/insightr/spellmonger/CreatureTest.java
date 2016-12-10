@@ -8,15 +8,15 @@ import static org.junit.Assert.*;
  * Created by Dam's on 07/12/2016.
  */
 public class CreatureTest {
-    Object o;
+    //Object o;
 
 
 
-    @org.junit.Before
+    /*@org.junit.Before
     public void AuDebut() throws Exception {
         o = null;
 
-    }
+    }*/
 
     @org.junit.Test
     public void getDamage() throws Exception {

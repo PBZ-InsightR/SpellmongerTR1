@@ -21,7 +21,7 @@ class Deck {
         Card card;
         int i;
 
-        for (i = 0; i < nombreCarte/4; i++) {
+        for (i = 0; i < (nombreCarte/4) +2; i++) {
             card = new Creature("Eagle");
             deck.add(card);
         }
@@ -33,11 +33,11 @@ class Deck {
             card = new Creature("Bear");
             deck.add(card);
         }
-        for (i = 0; i < nombreCarte/21; i++) {
+        for (i = 0; i < (nombreCarte/21)+1; i++) {
             card = new Ritual("Curse");
             deck.add(card);
         }
-        for (i = 0; i < (nombreCarte/14); i++) {
+        for (i = 0; i < (nombreCarte/14)-1; i++) {
             card = new Ritual("Blessing");
             deck.add(card);
         }
@@ -48,7 +48,7 @@ class Deck {
         return  deck;
     }
 
-    // Distribue à chaque joueur une deck de 21 cartes.
+    // Distribue à chaque joueur un deck de 21 cartes.
     public List<Card> DistributionCarte() {
         Card cartePioche = null;
         List<Card> deckJoueur = new ArrayList<>(nombreCarte/2);
