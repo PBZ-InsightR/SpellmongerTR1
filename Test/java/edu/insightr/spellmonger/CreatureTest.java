@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
  * Created by Dam's on 07/12/2016.
  */
 public class CreatureTest {
-    //Object o;
+
 
 
 
@@ -28,7 +28,7 @@ public class CreatureTest {
         assertEquals(" attacks of an eagle ", 1, creatureEagle.getDamage());
         assertEquals("attacks of an wolf",2,creatureWolf.getDamage());
         assertEquals("attacks of an bear  ",3,creatureBear.getDamage());
-        // assertTrue( );
+
     }
 
 }
