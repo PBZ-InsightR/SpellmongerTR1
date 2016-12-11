@@ -97,6 +97,32 @@ public class DeckTest {
 
         assertSame("shuffle works ? ", true, bool);
     }
+    @Test
+    pubic void DistributionCarte(){
+
+        List<Card> cardPlayer1=deckplayer1.GetDeck();
+        List<Card> cardPLayer2=deckplayer2.GetDeck();
+        boolean nombreDeCarteIdentique=true;
+//on peut tester si le nombre de carte est identique ou si la liste de carte contient 21 cartes
+ if (cardPlayer1 == cardPLayer2) {
+     return nombreDeCarteIdentique;
+ }
+
+ //assertEquals(21, cardPlayers1);
+
+    }
+
+    @Test
+    public void CreationMain(){
+
+        List<Card> mainJ1=deckplayer1.GetDeck();
+        boolean Check=truc;
+
+            if (mainJ1.size<=3){
+
+                return Check;
+            }
+    }
 
 
 }

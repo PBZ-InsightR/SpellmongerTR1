@@ -122,7 +122,7 @@ public class PlayerTest {
         Rituel curse= new Curse("Curse");
 
         boolean curse=true;
-        damageTest= card1.getDamage(); 
+        damageTest= card1.getDamage();
 
         assertEquals(2,damageTest);
 
