@@ -1,6 +1,6 @@
 package edu.insightr.spellmonger;
 
-import org.junit.Before;
+//import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -13,12 +13,12 @@ import static org.junit.Assert.*;
  */
 public class PlayerTest {
 
-    @Before
+    /*@Before
     public void Init()
     {
 
 
-    }
+    }*/
     @Test
     public void damage() throws Exception {
         Deck deck1 = new Deck();
@@ -40,12 +40,44 @@ public class PlayerTest {
 
     @Test
     public void estMort() throws Exception {
+        Deck deck = new Deck();
+        List<Card> deckPlayer = deck.GetDeck();
+        List<Card> hand = deck.GetMainactuelle();
+        int lifePoint = 10;
+        Player P = new Player("PlayerTestEstMort", lifePoint, deckPlayer, hand );
 
+        // Case where Player is alive
+        //Should return false
+        boolean expected = false;
+        assertEquals("Player is not dead", expected, P.estMort());
+
+        //Case where Player is dead
+        //Should return true
+        lifePoint =0;
+        expected = true;
+        Player P_dead = new Player("PlayerDead", lifePoint, deck.DistributionCarte(),hand );
+        assertEquals("Player is dead ", expected, P_dead.estMort());
     }
 
     @Test
     public void estEnVie() throws Exception {
+        Deck deck = new Deck();
+        List<Card> deckPlayer = deck.GetDeck();
+        List<Card> hand = deck.GetMainactuelle();
+        int lifePoint = 10;
+        Player P = new Player("PlayerTest EstEnVie", lifePoint, deckPlayer, hand );
 
+        //Case where Player is alive
+        //Should return true
+        boolean expected = true;
+        assertEquals("Player is alive", expected, P.estEnVie());
+
+        //Case where Player is dead
+        //Should return false
+        lifePoint = 0;
+        expected = false;
+        Player P_dead = new Player("PlayerDead", lifePoint, deck.DistributionCarte(),hand );
+        assertEquals("Player is dead ", expected, P_dead.estEnVie());
     }
 
     @Test
@@ -66,6 +98,17 @@ public class PlayerTest {
     @Test
     public void creaVsRituJ2() throws Exception {
 
+    }
+
+    @Test
+    public void getPvTest() throws Exception {
+        Deck deck = new Deck();
+        List<Card> deckP = deck.GetDeck();
+        List<Card> handP = deck.GetMainactuelle();
+        int lifePoint = 20 ,expected = 20;
+        Player P = new Player("PlayerTest",lifePoint, deckP,handP);
+
+        assertEquals("Player P has 20 life's point", expected, P.getPv());
     }
 
 }
