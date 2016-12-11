@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
  * Created by Dam's on 11/12/2016.
  */
 public class RitualTest {
-
+  
 
 
     @Test
