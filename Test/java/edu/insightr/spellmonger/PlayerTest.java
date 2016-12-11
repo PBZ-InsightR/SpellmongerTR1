@@ -1,6 +1,9 @@
 package edu.insightr.spellmonger;
 
+import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -8,6 +11,16 @@ import static org.junit.Assert.*;
  * Created by Dam's on 11/12/2016.
  */
 public class PlayerTest {
+
+    @Before
+    public void Init()
+    {
+        Deck deck1 = new Deck();
+        List<Card> deckplayer1=deck1.GetDeck();
+        List<Card> handPlayer1=deck1.GetMainactuelle();
+        Player player1 = new Player("player1",20,deckplayer1,handPlayer1);
+        
+    }
     @Test
     public void damage() throws Exception {
 

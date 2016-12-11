@@ -8,6 +8,7 @@ import static java.util.Collections.shuffle;
 class Deck {
     private List<Card> deck;
     private  int nombreCarte=42;  // permet que chacun des joueurs est 21 cartes
+    private List<Card> mainActuelle = new ArrayList<>(3);
 
 
     // Un Deck instancié est un deck constitué de 42 cartes et melangé.
@@ -72,7 +73,6 @@ class Deck {
     // Distribue à chaque joueur une main de 3 cartes.
     public List<Card> CreationMain(List<Card> deckJoueur){
         Card cartePiocheDeckJoueur = null;
-        List<Card> mainActuelle = new ArrayList<>(3);
 
         if ( mainActuelle.size() == 0)
             for (int i =0; i < 3; i++) {
@@ -157,4 +157,7 @@ class Deck {
 
     public  List<Card> GetDeck()
     {return deck;}
+
+    public List<Card>GetMainactuelle()
+    {return mainActuelle;}
 }

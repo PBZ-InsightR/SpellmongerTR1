@@ -13,7 +13,7 @@ public class CreatureTest {
 
     @org.junit.Test
     public void getDamage() throws Exception {
-        
+
         Creature creatureEagle = new Creature("Eagle");
         Creature creatureWolf = new Creature("Wolf");
         Creature creatureBear = new Creature("Bear");
