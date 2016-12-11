@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 
 /**
- * Created by Dam's on 11/12/2016.
+ * Created by Dam's  on 11/12/2016. 
  */
 public class PlayerTest {
 
@@ -37,7 +37,20 @@ public class PlayerTest {
         assertEquals("pv(20)+3",23,pv);
 
     }
+    @Test
+    public void creaVsCrea() throws Exception {
 
+        int damageTest =0;
+        int damageTest2=0;
+        Card card1 = new Card ("Eagle");
+        Card card2 = new Card ("wolf");
+
+        damageTest=card1.getDamage();
+        damageTest2=card2.getDamage();
+        assertEquals(1,damageTest);
+        assertEquals(1,damageTest2);
+
+    }
     @Test
     public void estMort() throws Exception {
 
@@ -48,10 +61,7 @@ public class PlayerTest {
 
     }
 
-    @Test
-    public void creaVsCrea() throws Exception {
 
-    }
 
     @Test
     public void rituVsRitu() throws Exception {
