@@ -24,14 +24,6 @@ public class RitualTest {
 
     }
 
-    @Test
-    public void getShield() throws Exception {
 
-    }
-
-    @Test
-    public void getId() throws Exception {
-
-    }
 
 }
