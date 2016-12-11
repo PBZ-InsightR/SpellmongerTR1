@@ -98,6 +98,11 @@ public class PlayerTest {
     @Test
     public void rituVsRitu() throws Exception {
 
+        Card card1= new Card("Eagle");
+        Card card2 = new Card("Wolf");
+
+        
+
     }
 
     @Test
