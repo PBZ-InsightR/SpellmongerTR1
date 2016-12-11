@@ -45,10 +45,8 @@ public class PlayerTest {
         Card card1 = new Card ("Eagle");
         Card card2 = new Card ("wolf");
 
-        damageTest=card1.getDamage();
-        damageTest2=card2.getDamage();
+        damageTest=(card1.getDamage())-((card2.getDamage));
         assertEquals(1,damageTest);
-        assertEquals(1,damageTest2);
 
     }
     @Test
@@ -98,15 +96,35 @@ public class PlayerTest {
     @Test
     public void rituVsRitu() throws Exception {
 
-        Card card1= new Card("Eagle");
-        Card card2 = new Card("Wolf");
+        Ritual shield= new Ritual("Shield");
+        Ritual curse= new Ritual ("Curse");
+        Ritual blessing=new Ritual("Blessing");
+        int damageTest=0;
 
-        
+        /*boolean shield =true;
+        damageTest=shield.getValue();
+
+        assertEquals(); */
+
+        damage curseTest=curse.getValue();
+        damage blessingTest=blessing.getValue();
+
+        assertEquals(+3,curseTest);
+        assertEquals(-3,blessingTest);
+
 
     }
 
     @Test
     public void creaVsRituJ1() throws Exception {
+
+        Card card1 = new Card("Wolf");
+        Rituel curse= new Curse("Curse");
+
+        boolean curse=true;
+        damageTest= card1.getDamage(); 
+
+        assertEquals(2,damageTest);
 
     }
 
