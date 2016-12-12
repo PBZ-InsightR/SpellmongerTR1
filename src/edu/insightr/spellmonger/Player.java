@@ -7,13 +7,11 @@ class Player {
     private String name;
     private List<Card> deckDuJoueur;
     private int points_de_vie;
-    private List<Card> maindujoueur;
 
-    Player(String name, int points_de_vie, List<Card> deckDuJoueur, List<Card> maindujoueur) {
+    Player(String name, int points_de_vie, List<Card> deckDuJoueur) {
         this.points_de_vie = points_de_vie;
         this.name = name;
         this.deckDuJoueur=deckDuJoueur;
-        this.maindujoueur=maindujoueur;
     }
 
     void damage(int degats) {
@@ -83,9 +81,7 @@ class Player {
     {
         return deckDuJoueur;
     }
-    List<Card> GetMainDuJoueur(){ return maindujoueur;}
-
 
     void SetDeckDuJoueur(List<Card> deck){deckDuJoueur=deck;}
-    void SetMainDuJoueur(List<Card> main){maindujoueur=main;}
+
 }

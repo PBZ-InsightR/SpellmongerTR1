@@ -17,38 +17,34 @@ public class SpellmongerApp {
         boolean jeu_fini = false;
         int NOMBREDECARTEMAIN=3;
         List<Card> deckJ1 = deck.DistributionCarte(); //Creation du Deck J1
-        List<Card> deckJ2 = deck.DistributionCarte(); //Creation du Deck J2
+        List<Card> deckJ2 = deck.DistributionCarte(); //Creation du Deck J
 
+        List<Card> defausseJ1 = new ArrayList<>(21);
+        List<Card> defausseJ2 = new ArrayList<>(21);
 
-        Deck defausse = new Deck();
-        List<Card> defausseJ1=defausse.CreationDeck();
-        List<Card> defausseJ2=defausse.CreationDeck();
+        Hand mainJ1 = new Hand(deckJ1);
+        Hand mainJ2 = new Hand(deckJ2);
 
-        List<Card> mainJ1 = deck.CreationMain(deckJ1); //Main de départ J1
-        List<Card> mainJ2 = deck.CreationMain(deckJ2); //Main de depart J2
-
-        Player J1 = new Player("alice", LIFEPOINT ,deckJ1, mainJ1 ); //Creation des joueurs
-        Player J2 = new Player("bob", LIFEPOINT ,deckJ2, mainJ2);
-
-
+        Player J1 = new Player("alice", LIFEPOINT ,deckJ1); //Creation des joueurs
+        Player J2 = new Player("bob", LIFEPOINT ,deckJ2);
 
         do {
             System.out.println();
             System.out.println("Entering round " + roundCounter + "..."); //INFO ROUND
 
             //L'ia prend le controle de la main du J1
-            IA IA_J1= new IA(J1,J2);
+            IA IA_J1= new IA(J1,J2,mainJ1.GetMainJoueur());
             //Methode pour choisir la meilleur carte parmis les 3
             Card card1 = IA_J1.ChooseBestCard();
             //Card card1 = J1.getDeckDuJoueur().get(roundCounter); //Pas encore d'ia, donc le joueur joue la carte 1 au t1, la carte 2 au t2, etc ..
 
             Scanner sc = new Scanner(System.in);
 
-            deck.AfficherMain(J2.GetMainDuJoueur());
+            deck.AfficherMain(mainJ2.GetMainJoueur());
             String str = sc.nextLine();
             int choix = Integer.parseInt(str);
-            Card card2 = J2.GetMainDuJoueur().get(choix-1); //Le joueur prend la première carte de sa main
-
+            //Selection carte
+            Card card2 = mainJ2.choix_carte_main(deckJ2).get(choix-1);
 			/* System.out.println("/n deck de alice :");
 			* deck.AfficherMain(J1.getDeckDuJoueur()); //On affiche les main des joueurs. Mais prend bcp de place dans les logs
 			* System.out.println("/n deck de bob :");
@@ -84,9 +80,9 @@ public class SpellmongerApp {
             // Defausse (de la main)
             defausseJ1.add(card1);
             defausseJ2.add(card2);
-
-            J1.GetMainDuJoueur().remove(card1);
-            J2.GetMainDuJoueur().remove(card2);
+            //Nouvelle main
+            mainJ2.GetMainJoueur().remove(card2);
+            mainJ1.GetMainJoueur().remove(card1);
 
             NOMBREDECARTEMAIN--;
 
@@ -98,11 +94,11 @@ public class SpellmongerApp {
                 J2.SetDeckDuJoueur(deckJ2);
             }
 
-            if (J1.GetMainDuJoueur().size()==0)
+            if (mainJ1.GetMainJoueur().size()==0)
             {
                 System.out.println(J1.getName() +" and "+ J2.getName()  +" draw 3 cards !");
-                J1.SetMainDuJoueur(deck.CreationMain(deckJ1));
-                J2.SetMainDuJoueur(deck.CreationMain(deckJ2));
+                mainJ1 = new Hand(deckJ1);
+                mainJ2 = new Hand(deckJ2);
                 NOMBREDECARTEMAIN=3;
             }
 

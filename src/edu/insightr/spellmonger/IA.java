@@ -8,11 +8,11 @@ public class IA
  //   private final int maxPv;
     private List<Card> liste_de_carte;
 
-    public IA(Player player, Player ennemy) {
+    public IA(Player player, Player ennemy, List<Card> main) {
         this.player = player;
         this.ennemy = ennemy;
  //       this.maxPv = player.getPv();
-        this.liste_de_carte=player.GetMainDuJoueur();
+        this.liste_de_carte=main;
     }
 
     Card attack_cards() {
