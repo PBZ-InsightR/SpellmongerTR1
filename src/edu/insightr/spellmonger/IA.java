@@ -15,6 +15,11 @@ public class IA
         this.liste_de_carte=player.GetMainDuJoueur();
     }
 
+    // To improve the AI we created 2 different stances to adapt the AI behaviour in function of the actual situation
+    // These stances differ by the priority of each kind of cards
+    // If the rules of the game asked to draw a new card on each turn instead of waiting the "main" (liste_de_carte) to be empty, the AI would be even more efficient
+
+    // Creation of the aggressive stance of the AI
     Card attack_cards() {
         for (int i=0; i<liste_de_carte.size() ; i++) {
             if (liste_de_carte.get(i).getId().equals("Bear")) {
@@ -50,6 +55,7 @@ public class IA
         return null;
     }
 
+    // Creation of the defensive stance of the AI
     Card defense_cards() {
         for (int i = 0; i < liste_de_carte.size(); i++) {
             if (liste_de_carte.get(i).getId().equals("Blessing")) {
@@ -86,20 +92,24 @@ public class IA
     }
 
     Card ChooseBestCard() {
+        // if statement that tell if all cards were played
         if (liste_de_carte.isEmpty()) {
             System.out.println("Plus de cartes ! ");
         }
 
-
-        if (player.getPv() >= ennemy.getPv()) {
+        // if statement to chose which stance to adopt
+        if (player.getPv() >= ennemy.getPv()) { // If player has as much as or more Health Point than ennemy, adopt aggressive stance
             Card card = attack_cards();
+
             if (card == null)
                 card = defense_cards();
+
             if (card != null)
                 return card;
         }
-        else if (player.getPv() < ennemy.getPv()) {
+        else if (player.getPv() < ennemy.getPv()) { // If player has less Health Point than ennemy, adopt defensive stance
             Card card = defense_cards();
+
             if (card == null)
                 card = attack_cards();
 
