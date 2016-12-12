@@ -37,7 +37,7 @@ public class SpellmongerApp {
             System.out.println("Entering round " + roundCounter + "..."); //INFO ROUND
 
             //L'ia prend le controle de la main du J1
-            IA IA_J1= new IA(J1.GetMainDuJoueur());
+            IA IA_J1= new IA(J1,J2);
             //Methode pour choisir la meilleur carte parmis les 3
             Card card1 = IA_J1.ChooseBestCard();
             //Card card1 = J1.getDeckDuJoueur().get(roundCounter); //Pas encore d'ia, donc le joueur joue la carte 1 au t1, la carte 2 au t2, etc ..
