@@ -19,21 +19,4 @@ public class Hand
     }
     List<Card> GetMainJoueur(){return main_joueur;}
 
-    public List<Card> choix_carte_main(List<Card> deckJoueur){
-        Card cartePiocheDeckJoueur = null;
-
-        if (main_joueur.size() == 0)
-            for (int i =0; i < 3; i++) {
-                try {
-                    cartePiocheDeckJoueur = deckJoueur.get(0);
-                    deckJoueur.remove(0);
-                    main_joueur.add(cartePiocheDeckJoueur);
-                }
-                catch (IndexOutOfBoundsException e){
-                }
-            } else {
-            System.out.println("Main actuelle non vide");
-        }
-        return main_joueur;
-    }
 }

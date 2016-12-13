@@ -43,7 +43,7 @@ public class SpellmongerApp {
             String str = sc.nextLine();
             int choix = Integer.parseInt(str);
             //Selection carte
-            Card card2 = mainJ2.choix_carte_main(deckJ2).get(choix-1);
+            Card card2 = mainJ2.GetMainJoueur().get(choix-1);
 			/* System.out.println("/n deck de alice :");
 			* deck.AfficherMain(J1.getDeckDuJoueur()); //On affiche les main des joueurs. Mais prend bcp de place dans les logs
 			* System.out.println("/n deck de bob :");
@@ -76,7 +76,7 @@ public class SpellmongerApp {
             }
 
 
-           //Ajout des cartes a la defausse
+           //Ajout des cartes a la dfausse
             defausseJ1.add(card1);
             defausseJ2.add(card2);
             // Defausse (de la main)
