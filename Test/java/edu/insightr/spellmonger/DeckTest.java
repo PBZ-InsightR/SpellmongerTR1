@@ -100,7 +100,8 @@ public class DeckTest {
     public void DistributionCarte(){
 
         List<Card> cardPlayer1=deckplayer1.GetDeck();
-        assertEquals(21, cardPlayer1.size());
+        assertEquals(42, cardPlayer1.size());
+
     }
 
 
