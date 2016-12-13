@@ -1,9 +1,7 @@
 package edu.insightr.spellmonger;
 
-//import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -14,9 +12,10 @@ import static org.junit.Assert.*;
 public class DeckTest {
 
     //@org.junit.Before
-    Deck deckplayer1 = new Deck();
-    Deck deckplayer2 = new Deck();
-    int cardNumber = 42;
+
+     Deck deckplayer1 = new Deck();
+     Deck deckplayer2 = new Deck();
+     int CARDNUMBER =42;
 
     @Test
     public void CreationDeck(){
@@ -33,37 +32,37 @@ public class DeckTest {
         final String shieldCard = "Shield";
         final String blessingCard = "Blessing";
 
-        assertEquals("number of card",cardNumber,deckplayer1.GetDeck().size());
+        assertEquals("number of card", CARDNUMBER,deckplayer1.GetDeck().size());
 
         for ( Card card : deckplayer1.GetDeck())
         {
             switch (card.getId())
-            {
+                    {
 
-                case eagleCard:
-                    eagle++;
-                    break;
+                        case eagleCard:
+                            eagle++;
+                            break;
 
-                case wolfCard:
-                    wolf++;
-                    break;
+                        case wolfCard:
+                            wolf++;
+                            break;
 
-                case bearCard:
-                    bear++;
-                    break;
+                        case bearCard:
+                            bear++;
+                            break;
 
-                case curseCard :
-                    curse++;
-                    break;
+                        case curseCard :
+                            curse++;
+                            break;
 
-                case shieldCard:
-                    shield++;
-                    break;
+                        case shieldCard:
+                            shield++;
+                            break;
 
-                case blessingCard:
-                    blessing++;
-                    break;
-            }
+                        case blessingCard:
+                            blessing++;
+                            break;
+                    }
         }
 
         assertEquals("number of wolf",10,wolf);
@@ -79,49 +78,32 @@ public class DeckTest {
         boolean  bool = true;
         int i =0 ;
 
-        List<Card> cardPlayer1= deckplayer1.GetDeck();
-        List<Card> cardPLayer2=deckplayer2.GetDeck();
-        if(cardPlayer1.get(i).equals(cardPLayer2.get(i)))
-        {
-            if(cardPlayer1.get(i+1).equals(cardPLayer2.get(i+1)))
+            List<Card> cardPlayer1= deckplayer1.GetDeck();
+            List<Card> cardPLayer2=deckplayer2.GetDeck();
+            if(cardPlayer1.get(i).equals(cardPLayer2.get(i)))
             {
-                if(cardPlayer1.get(i+2).equals(cardPLayer2.get(i+2)))
+                if(cardPlayer1.get(i+1).equals(cardPLayer2.get(i+1)))
                 {
-                    if (cardPlayer1.get(i+3).equals(cardPLayer2.get(i+3)))
+                    if(cardPlayer1.get(i+2).equals(cardPLayer2.get(i+2)))
                     {
-                        bool =false;
+                        if (cardPlayer1.get(i+3).equals(cardPLayer2.get(i+3)))
+                        {
+                            bool =false;
+                        }
                     }
                 }
             }
-        }
 
         assertSame("shuffle works ? ", true, bool);
     }
     @Test
     public void DistributionCarte(){
-    //on peut tester si le nombre de carte est identique ou si la liste de carte contient 21 cartes
-        Card cartePioche = null;
-        int nombreCarte = 42;
-        int count = 0;
-        List<Card> deckJoueur = new ArrayList<>(nombreCarte/2);
 
-        if (deckplayer2.GetDeck().size() != 0) {
-            for (int i = 0; i < nombreCarte/2; i++) {
-                try {
-                    cartePioche = deckplayer2.GetDeck().get(0);
-                    deckplayer2.GetDeck().remove(0);
-                    count++;
-                }
-                catch (IndexOutOfBoundsException e){}
-                deckJoueur.add(cartePioche);
-            }
-        }
-        assertEquals("The deck of each player should be the same",count,deckplayer1.DistributionCarte().size());
-
+        List<Card> cardPlayer1=deckplayer1.GetDeck();
+        assertEquals(21, cardPlayer1.size());
     }
 
-    @Test
-    public void CreationMain(){
 
-    }
+
+
 }
