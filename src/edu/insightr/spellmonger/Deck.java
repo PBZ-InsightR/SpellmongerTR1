@@ -126,9 +126,7 @@ class Deck {
             System.out.print( i +" : "+ hand.get(i)+"\n");
         }
     }
-    public List<Card> GetDeck(){
-        return deck;
-    }
+   
 
     public  List<Card> GetDeck()
      {return deck;}
