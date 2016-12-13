@@ -6,14 +6,13 @@ import static java.util.Collections.shuffle;
 /**	Created by Chloé +  Dams on 04/10/2016.	**/
 
 class Deck {
+
     private List<Card> deck;
-    private  int nombreCarte=42;  // permet que chacun des joueurs est 21 cartes
-    private List<Card> mainActuelle = new ArrayList<>(3);
+    private  int NUMBEROFCARD =42;
 
-
-    // Un Deck instancié est un deck constitué de 42 cartes et melangé.
+    // An instantiated deck is mixed and established of 42 cards.
     Deck() {
-        deck = new ArrayList<>(nombreCarte);
+        deck = new ArrayList<>(NUMBEROFCARD);
         deck = CreationDeck();
         shuffle(deck);
     }
@@ -22,64 +21,64 @@ class Deck {
         Card card;
         int i;
 
-        for (i = 0; i < (nombreCarte/4) +2; i++) {
+        for (i = 0; i < (NUMBEROFCARD/4)+2; i++) {
             card = new Creature("Eagle");
             deck.add(card);
         }
-        for (i = 0; i < nombreCarte/4; i++) {
+        for (i = 0; i < NUMBEROFCARD/4; i++) {
             card = new Creature("Wolf");
             deck.add(card);
         }
-        for (i = 0; i < nombreCarte/4; i++) {
+        for (i = 0; i < NUMBEROFCARD/4; i++) {
             card = new Creature("Bear");
             deck.add(card);
         }
-        for (i = 0; i < (nombreCarte/21)+1; i++) {
+        for (i = 0; i < (NUMBEROFCARD/21)+1; i++) {
             card = new Ritual("Curse");
             deck.add(card);
         }
-        for (i = 0; i < (nombreCarte/14)-1; i++) {
+        for (i = 0; i < (NUMBEROFCARD/14)-1; i++) {
             card = new Ritual("Blessing");
             deck.add(card);
         }
-        for (i = 0; i < nombreCarte/8; i++) {
+        for (i = 0; i < NUMBEROFCARD/8; i++) {
             card = new Ritual("Shield");
             deck.add(card);
         }
         return  deck;
     }
 
-    // Distribue à chaque joueur un  deck de 21 cartes.
+    // Distrubute to every player a deck of 21 cards
     public List<Card> DistributionCarte() {
-        Card cartePioche = null;
-        List<Card> deckJoueur = new ArrayList<>(nombreCarte/2);
+        Card drewCard = null;
+        List<Card> deckJoueur = new ArrayList<>(NUMBEROFCARD /2);
 
         if (deck.size() != 0) {
-            for (int i = 0; i < nombreCarte/2; i++) {
+            for (int i = 0; i < NUMBEROFCARD /2; i++) {
                 try {
-                    cartePioche = deck.get(0);
+                    drewCard = deck.get(0);
                     deck.remove(0);
                 }
                 catch (IndexOutOfBoundsException e){}
-                deckJoueur.add(cartePioche);
+                deckJoueur.add(drewCard);
             }
         } else {
-            System.out.println("Deck vide");
+            System.out.println("Deck wole");
             deckJoueur = null;
         }
         return deckJoueur;
     }
 
     // Fonction qui lorsqu'on lui donne une main affiche le contenu de la main du joueur concerné.
-    public void AfficherDeck(List<Card> Une_main ) {
+    public void AfficherDeck(List<Card> hand ) {
         // Initialisation de la Map
         Map<String, Integer> map = new HashMap<>();
         String[] tab = {"Eagle" , "Wolf" , "Bear" , "Curse" , "Blessing" , "Shield"};
 
-        for (String carte : tab) {
-            map.put(carte,0);
+        for (String card : tab) {
+            map.put(card,0);
         }
-        for (Card card : Une_main) {
+        for (Card card : hand) {
             switch (card.getId()) {
                 case "Eagle":
                     map.put("Eagle", map.get("Eagle") + 1);
@@ -117,14 +116,18 @@ class Deck {
         );
     }
 
-    public void AfficherMain(List<Card> Une_main )
+    public void AfficherMain(List<Card> hand )
     {
-        System.out.println("Veuillez saisir une carte parmis : \n");
-        int a=Une_main.size();
-        for(int i=1; i<(a+1) ;i++)
+
+        System.out.println("You can choose a card : \n");
+        int a=hand.size();
+        for(int i=0; i<a ;i++)
         {
-            System.out.print( i +" : "+ Une_main.get(i-1)+"\n");
+            System.out.print( i +" : "+ hand.get(i)+"\n");
         }
+    }
+    public List<Card> GetDeck(){
+        return deck;
     }
 
 }

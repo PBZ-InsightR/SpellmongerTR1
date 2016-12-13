@@ -2,7 +2,6 @@ package edu.insightr.spellmonger;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -14,9 +13,9 @@ public class DeckTest {
 
     //@org.junit.Before
 
-    Deck deckplayer1 = new Deck();
-    Deck deckplayer2 = new Deck();
-    int cardNumber=42;
+     Deck deckplayer1 = new Deck();
+     Deck deckplayer2 = new Deck();
+     int CARDNUMBER =42;
 
     @Test
     public void CreationDeck(){
@@ -33,7 +32,7 @@ public class DeckTest {
         final String shieldCard = "Shield";
         final String blessingCard = "Blessing";
 
-        assertEquals("number of card",cardNumber,deckplayer1.GetDeck().size());
+        assertEquals("number of card", CARDNUMBER,deckplayer1.GetDeck().size());
 
         for ( Card card : deckplayer1.GetDeck())
         {
@@ -98,31 +97,13 @@ public class DeckTest {
         assertSame("shuffle works ? ", true, bool);
     }
     @Test
-    pubic void DistributionCarte(){
+    public void DistributionCarte(){
 
         List<Card> cardPlayer1=deckplayer1.GetDeck();
-        List<Card> cardPLayer2=deckplayer2.GetDeck();
-        boolean nombreDeCarteIdentique=true;
-//on peut tester si le nombre de carte est identique ou si la liste de carte contient 21 cartes
- if (cardPlayer1 == cardPLayer2) {
-     return nombreDeCarteIdentique;
- }
-
- //assertEquals(21, cardPlayers1);
-
+        assertEquals(21, cardPlayer1.size());
     }
 
-    @Test
-    public void CreationMain(){
 
-        List<Card> mainJ1=deckplayer1.GetDeck();
-        boolean Check=truc;
-
-            if (mainJ1.size<=3){
-
-                return Check;
-            }
-    }
 
 
 }
