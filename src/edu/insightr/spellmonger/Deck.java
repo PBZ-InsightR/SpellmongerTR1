@@ -127,4 +127,6 @@ class Deck {
         }
     }
 
+    public  List<Card> GetDeck()
+     {return deck;}
 }
