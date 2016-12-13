@@ -130,4 +130,6 @@ class Deck {
         return deck;
     }
 
+    public  List<Card> GetDeck()
+     {return deck;}
 }

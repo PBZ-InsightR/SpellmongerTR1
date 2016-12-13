@@ -10,7 +10,6 @@ import static org.junit.Assert.*;
 public class CreatureTest {
 
 
-
     @org.junit.Test
     public void getDamage() throws Exception {
 
