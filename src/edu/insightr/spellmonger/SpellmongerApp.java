@@ -15,18 +15,17 @@ public class SpellmongerApp {
         final int LIFEPOINT = 20;
         int roundCounter = 0;
         boolean jeu_fini = false;
-        int NOMBREDECARTEMAIN=3;
         List<Card> deckJ1 = deck.DistributionCarte(); //Creation du Deck J1
         List<Card> deckJ2 = deck.DistributionCarte(); //Creation du Deck J
 
-        List<Card> defausseJ1 = new ArrayList<>(21);
-        List<Card> defausseJ2 = new ArrayList<>(21);
+        List<Card> defausseJ1 = new ArrayList<>(NOMBREDECARTE);
+        List<Card> defausseJ2 = new ArrayList<>(NOMBREDECARTE);
 
         Hand mainJ1 = new Hand(deckJ1);
         Hand mainJ2 = new Hand(deckJ2);
 
-        Player J1 = new Player("alice", LIFEPOINT ,deckJ1); //Creation des joueurs
-        Player J2 = new Player("bob", LIFEPOINT ,deckJ2);
+        Player J1 = new Player("alice", LIFEPOINT, deckJ1); //Creation des joueurs
+        Player J2 = new Player("bob", LIFEPOINT, deckJ2);
 
         do {
             System.out.println();
@@ -77,14 +76,13 @@ public class SpellmongerApp {
             }
 
 
-            // Defausse (de la main)
+           //Ajout des cartes a la defausse
             defausseJ1.add(card1);
             defausseJ2.add(card2);
-            //Nouvelle main
+            // Defausse (de la main)
             mainJ2.GetMainJoueur().remove(card2);
             mainJ1.GetMainJoueur().remove(card1);
 
-            NOMBREDECARTEMAIN--;
 
             if (J1.getDeckDuJoueur().size()==0)
             {
@@ -99,7 +97,6 @@ public class SpellmongerApp {
                 System.out.println(J1.getName() +" and "+ J2.getName()  +" draw 3 cards !");
                 mainJ1 = new Hand(deckJ1);
                 mainJ2 = new Hand(deckJ2);
-                NOMBREDECARTEMAIN=3;
             }
 
             //Affichage des points de vie des joueurs

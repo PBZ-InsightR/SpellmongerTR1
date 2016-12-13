@@ -70,25 +70,6 @@ class Deck {
         return deckJoueur;
     }
 
-    // Distribue à chaque joueur une main de 3 cartes.
-    public List<Card> CreationMain(List<Card> deckJoueur){
-        Card cartePiocheDeckJoueur = null;
-
-        if ( mainActuelle.size() == 0)
-            for (int i =0; i < 3; i++) {
-                try {
-                    cartePiocheDeckJoueur = deckJoueur.get(0);
-                    deckJoueur.remove(0);
-                    mainActuelle.add(cartePiocheDeckJoueur);
-                }
-                catch (IndexOutOfBoundsException e){
-                }
-            } else {
-            System.out.println("Main actuelle non vide");
-        }
-        return mainActuelle;
-    }
-
     // Fonction qui lorsqu'on lui donne une main affiche le contenu de la main du joueur concerné.
     public void AfficherDeck(List<Card> Une_main ) {
         // Initialisation de la Map
@@ -146,18 +127,4 @@ class Deck {
         }
     }
 
-    public Card PickCard(List<Card> Une_main , int i) {
-        Card carte_choisit;
-        Une_main.remove(i);
-        carte_choisit = Une_main.get(i);
-        return carte_choisit;
-    }
-
-
-
-    public  List<Card> GetDeck()
-    {return deck;}
-
-    public List<Card>GetMainactuelle()
-    {return mainActuelle;}
 }

@@ -118,7 +118,7 @@ public class IA
         }
 
         System.out.println("ERREUR !!");
-        return new Creature("XXX"); //HORREUR ULTIMEEEE
+        return new Creature("XXX");
 
     }
 
